@@ -6,7 +6,7 @@ use <clip.scad>;
 module cargo_bay_exterior(thickness = 1.8) {
   height = 10;
   
-  width = 50 * cos(67.5) * 4;
+  width = 50 * cos((180 - 360 / 8) / 2) * 4;
   
   difference() {
     cube([width, 10, thickness]);
@@ -29,34 +29,24 @@ module cargo_bay_exterior(thickness = 1.8) {
   translate([width / 8, 10, 0]) rotate([0, 0, 90]) clip();
   translate([width / 8, 0, 0]) rotate([0, 0, -90]) clip();
   
-  translate([3 *width / 8, 10, 0]) rotate([0, 0, 90]) clip();
-  translate([3 * width / 8, 0, 0]) rotate([0, 0, -90]) clip();
-  
-  translate([5 * width / 8, 10, 0]) rotate([0, 0, 90]) clip();
-  translate([5 * width / 8, 0, 0]) rotate([0, 0, -90]) clip();
-  
   translate([7 * width / 8, 10, 0]) rotate([0, 0, 90]) clip();
   translate([7 * width / 8, 0, 0]) rotate([0, 0, -90]) clip();
   
 }
 
 module cargo_bay_top_cap(thickness = 1.8) {
-  hole_r = 50 / 2 * sin(67.5);
+  hole_r = 50 / 2 * sin(67.5) - 1.8;
 
   difference() {
     cylinder(h = thickness, d = 50 + 2, $fn = 90);
     
     translate([hole_r, 0, 0]) clip_hole();
-    rotate([0, 0, 360 / 8]) translate([hole_r, 0, 0]) clip_hole();
-    rotate([0, 0, 2 * 360 / 8]) translate([hole_r, 0, 0]) clip_hole();
     rotate([0, 0, 3 * 360 / 8]) translate([hole_r, 0, 0]) clip_hole();
     rotate([0, 0, 4 * 360 / 8]) translate([hole_r, 0, 0]) clip_hole();
-    rotate([0, 0, 5 * 360 / 8]) translate([hole_r, 0, 0]) clip_hole();
-    rotate([0, 0, 6 * 360 / 8]) translate([hole_r, 0, 0]) clip_hole();
     rotate([0, 0, 7 * 360 / 8]) translate([hole_r, 0, 0]) clip_hole();
   }
 }
 
-//cargo_bay_exterior();
+cargo_bay_exterior();
 
-cargo_bay_top_cap();
+translate([0, 50, 0]) cargo_bay_top_cap();

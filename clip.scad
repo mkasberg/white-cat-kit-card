@@ -4,11 +4,11 @@ module clip_half(thickness = 1.8) {
   translate([0, -1, 0]) linear_extrude(thickness) {
     polygon([
       [0, 0],
-      [0, 4],
-      [0.6, 4],
-      [1.4, 3.4],
-      [1.4, 3],
-      [0.8, 2.8],
+      [0, 4.4],
+      [0.4, 4.4],
+      [1.4, 3.6],
+      [1.4, 3.2],
+      [0.8, 1 + 1.8 + 0.2],
       [0.8, 0]
     ]);
   }
@@ -22,9 +22,22 @@ module clip() {
 }
 
 module clip_hole() {
-  translate([0, -0.8 * 2, -1]) cube([1.8, 0.8*4, 1.8 + 2]);
+  translate([-0.1, -(0.8 + 0.8 + 0.2), -1]) cube([1.8 + 0.2, 2 * (0.8 + 0.8 + 0.2), 1.8 + 2]);
 }
 
-clip();
+module test_clip_hole() {
+  difference() {
+    cube([10, 10, 1.8]);
+    translate([5, 5, 0]) clip_hole();
+  }
+}
 
-translate([10, 0, 0]) clip_hole();
+module test_clip() {
+  cube([10, 10, 1.8]);
+  translate([10, 5, 0]) clip();
+}
+
+test_clip();
+//translate([11.8, 0, -5]) rotate([0, -90, 0]) test_clip_hole();
+
+translate([20, 0, 0]) test_clip_hole();
