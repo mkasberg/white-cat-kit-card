@@ -22,7 +22,7 @@ module clip() {
 }
 
 module clip_hole() {
-  translate([-0.1, -(0.8 + 0.8 + 0.2), -1]) cube([1.8 + 0.2, 2 * (0.8 + 0.8 + 0.2), 1.8 + 2]);
+  translate([-0.15, -(0.8 + 0.8 + 0.3), -1]) cube([1.8 + 0.3, 2 * (0.8 + 0.8 + 0.3), 1.8 + 2]);
 }
 
 module test_clip_hole() {
