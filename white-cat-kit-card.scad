@@ -83,9 +83,17 @@ module cargo_bay_exterior() {
     translate([-1, 3, thickness - 0.4]) cube([width + 2, 0.4, 1]);
   }
   
+  difference() {
+    translate([0 * width / 4, 0, 0]) rotate([0, 0, 90]) big_bend_cap(height);
+    translate([-10, -1, -1]) cube([10, height + 2, thickness + 2]);
+  }
   translate([1 * width / 4, 0, 0]) rotate([0, 0, 90]) big_bend_cap(height);
   translate([2 * width / 4, 0, 0]) rotate([0, 0, 90]) big_bend_cap(height);
   translate([3 * width / 4, 0, 0]) rotate([0, 0, 90]) big_bend_cap(height);
+  difference() {
+    translate([4 * width / 4, 0, 0]) rotate([0, 0, 90]) big_bend_cap(height);
+    translate([width, -1, -1]) cube([10, height + 2, thickness + 2]);
+  }
   
   translate([width / 8, height, 0]) rotate([0, 0, 90]) clip();
   translate([width / 8, 0, 0]) rotate([0, 0, -90]) clip();
@@ -127,9 +135,17 @@ module top_section_inner_shell() {
     translate([4 * width / 4, -1, 0]) rotate([0, 0, 90]) bend_cut(8, height+2, covered=true);
   }
   
+  difference() {
+    translate([0 * width / 4, 0, 0]) rotate([0, 0, 90]) big_bend_cap(height);
+    translate([-10, -1, -1]) cube([10, height + 2, thickness + 2]);
+  }
   translate([1 * width / 4, 0, 0]) rotate([0, 0, 90]) big_bend_cap(height);
   translate([2 * width / 4, 0, 0]) rotate([0, 0, 90]) big_bend_cap(height);
   translate([3 * width / 4, 0, 0]) rotate([0, 0, 90]) big_bend_cap(height);
+  difference() {
+    translate([4 * width / 4, 0, 0]) rotate([0, 0, 90]) big_bend_cap(height);
+    translate([width, -1, -1]) cube([10, height + 2, thickness + 2]);
+  }
   
   translate([width / 8, height, 0]) rotate([0, 0, 90]) clip();
   translate([width / 8, 0, 0]) rotate([0, 0, -90]) clip();
@@ -267,7 +283,7 @@ translate([30, 170, 0]) nose_exterior();
 translate([0, 150, 0]) cargo_bay_exterior();
 translate([0, 130, 0]) cargo_bay_exterior();
 
-translate([0, 95, 0]) top_section_inner_shell();
+translate([0, 95, 0]) !top_section_inner_shell();
 translate([50, 95, 0]) top_section_inner_shell();
 
 translate([0, 70, 0]) top_section_outer_shell();
