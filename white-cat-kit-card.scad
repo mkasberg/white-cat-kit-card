@@ -111,7 +111,7 @@ module cargo_bay_bottom_cap() {
 }
 
 module top_section_top_exterior() {
-  height = 15;
+  height = 25;
   width = top_section_top_d * cos((180 - 360 / 8) / 2) * 4;
   
   difference() {
@@ -136,7 +136,7 @@ module top_section_top_exterior() {
 }
 
 module top_section_bottom_exterior() {
-  height = 10;
+  height = 15;
   width = top_section_bottom_d * cos((180 - 360 / 8) / 2) * 4;
 
   difference() {
@@ -151,8 +151,8 @@ module top_section_bottom_exterior() {
     translate([3 * width / 4, -1, thickness - 0.2]) rotate([0, 0, 90]) bend_cut(8, height+2);
     translate([4 * width / 4, -1, thickness - 0.2]) rotate([0, 0, 90]) bend_cut(8, height+2);
 
-    translate([-1, 8, thickness - 0.4]) cube([width + 2, 0.4, 1]);
-    translate([-1, 6, thickness - 0.4]) cube([width + 2, 0.4, 1]);
+    translate([-1, 12, thickness - 0.4]) cube([width + 2, 0.4, 1]);
+    translate([-1, 9, thickness - 0.4]) cube([width + 2, 0.4, 1]);
   }
   
   translate([width / 8, 0, 0]) rotate([0, 0, -90]) clip();
@@ -178,6 +178,31 @@ module middle_disc() {
   }
 }
 
+module bottom_section() {
+  height = 45;
+  width = top_section_top_d * cos((180 - 360 / 8) / 2) * 4;
+  
+  difference() {
+    cube([width, height, thickness]);
+    
+    translate([0 * width / 4, -1, 0]) rotate([0, 0, 90]) bend_cut(8, height+2, covered=true);
+    translate([1 * width / 4, -1, 0]) rotate([0, 0, 90]) bend_cut(8, height+2, covered=true);
+    translate([2 * width / 4, -1, 0]) rotate([0, 0, 90]) bend_cut(8, height+2, covered=true);
+    translate([3 * width / 4, -1, 0]) rotate([0, 0, 90]) bend_cut(8, height+2, covered=true);
+    translate([4 * width / 4, -1, 0]) rotate([0, 0, 90]) bend_cut(8, height+2, covered=true);
+  }
+  
+  translate([1 * width / 4, 0, 0]) rotate([0, 0, 90]) big_bend_cap(height);
+  translate([2 * width / 4, 0, 0]) rotate([0, 0, 90]) big_bend_cap(height);
+  translate([3 * width / 4, 0, 0]) rotate([0, 0, 90]) big_bend_cap(height);
+  
+  translate([width / 8, height, 0]) rotate([0, 0, 90]) clip();
+  translate([width / 8, 0, 0]) rotate([0, 0, -90]) clip();
+  
+  translate([7 * width / 8, height, 0]) rotate([0, 0, 90]) clip();
+  translate([7 * width / 8, 0, 0]) rotate([0, 0, -90]) clip();
+}
+
 cargo_bay_exterior();
 
 translate([0, 30, 0]) nose_exterior();
@@ -188,7 +213,7 @@ translate([70, 70, 0]) cargo_bay_bottom_cap();
 
 translate([100, 0, 0]) top_section_top_exterior();
 
-translate([100, 30, 0]) top_section_bottom_exterior();
+translate([100, 35, 0]) top_section_bottom_exterior();
 
 translate([120, 90, 0]) middle_disc();
 
