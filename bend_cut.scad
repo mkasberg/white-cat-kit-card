@@ -21,8 +21,8 @@ module big_bend_cap(length, thickness = 1.8) {
   translate([0, 0, thickness - 0.1]) rotate([0, 90, 0]) rotate([0, 0, 90]) linear_extrude(length) {
     polygon([
       [-1.2, 0],
-      [-0.8, 0.2 + 0.1],
-      [0.8, 0.2 + 0.1],
+      [-0.8, 0.4],
+      [0.8, 0.4],
       [1.2, 0]
     ]);
   }
