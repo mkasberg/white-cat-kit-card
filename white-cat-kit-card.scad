@@ -161,7 +161,7 @@ module top_section_outer_shell() {
   difference() {
     union() {
       cube([width, height, thickness]);
-      translate([0, 3, thickness - 0.01]) cube([width, 1, thickness]);
+      translate([0, 3, thickness - 0.01]) cube([width, 2, thickness]);
     }
     
     translate([0 * width / 4, -1, thickness - 0.2]) rotate([0, 0, 90]) bend_cut(8, height+2);
@@ -283,7 +283,7 @@ translate([30, 170, 0]) nose_exterior();
 translate([0, 150, 0]) cargo_bay_exterior();
 translate([0, 130, 0]) cargo_bay_exterior();
 
-translate([0, 95, 0]) !top_section_inner_shell();
+translate([0, 95, 0]) top_section_inner_shell();
 translate([50, 95, 0]) top_section_inner_shell();
 
 translate([0, 70, 0]) top_section_outer_shell();
