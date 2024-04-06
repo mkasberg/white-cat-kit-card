@@ -124,7 +124,7 @@ module cargo_bay_bottom_cap() {
   }
 }
 
-module top_section_inner_shell() {
+module top_section_inner_hull() {
   height = 25;
   // No need to subtract 4 * 0.2 here since bends are covered.
   width = top_section_inner_d * cos((180 - 360 / 8) / 2) * 4;
@@ -158,7 +158,7 @@ module top_section_inner_shell() {
   translate([7 * width / 8, 0, 0]) rotate([0, 0, -90]) clip();
 }
 
-module top_section_outer_shell() {
+module top_section_outer_hull() {
   height = 15;
   width = top_section_outer_d * cos((180 - 360 / 8) / 2) * 4;
 
@@ -207,7 +207,7 @@ module middle_disc() {
   }
 }
 
-module bottom_section() {
+module bottom_section_hull() {
   height = 45;
   // Remove 0.2 from diameter on each side to account for bend.
   bend_thickness = 0.2 / sin((180 - 360 / 8) / 2);
@@ -236,7 +236,7 @@ module bottom_section() {
   translate([7 * width / 8, 0, 0]) rotate([0, 0, -90]) clip();
 }
 
-module bottom_ring() {
+module bottom_ring_hull() {
   height = 10;
   // Remove 0.2 from diameter on each side to account for bend.
   bend_thickness = 0.2 / sin((180 - 360 / 8) / 2);
@@ -291,17 +291,17 @@ translate([30, 170, 0]) nose_exterior();
 translate([0, 150, 0]) cargo_bay_exterior();
 translate([0, 130, 0]) cargo_bay_exterior();
 
-translate([0, 95, 0]) top_section_inner_shell();
-translate([50, 95, 0]) top_section_inner_shell();
+translate([0, 95, 0]) top_section_inner_hull();
+translate([50, 95, 0]) top_section_inner_hull();
 
-translate([0, 70, 0]) top_section_outer_shell();
-translate([0, 50, 0]) top_section_outer_shell();
+translate([0, 70, 0]) top_section_outer_hull();
+translate([0, 50, 0]) top_section_outer_hull();
 
-translate([60, 40, 0]) bottom_section();
-translate([90, 40, 0]) bottom_section();
+translate([60, 40, 0]) bottom_section_hull();
+translate([90, 40, 0]) bottom_section_hull();
 
-translate([0, 10, 0]) bottom_ring();
-translate([0, 25, 0]) bottom_ring();
+translate([0, 10, 0]) bottom_ring_hull();
+translate([0, 25, 0]) bottom_ring_hull();
 
 
 translate([150, 140, 0]) cargo_bay_top_cap();
