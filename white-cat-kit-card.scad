@@ -25,7 +25,9 @@ bottom_disc_d = middle_d;
 
 module nose_exterior() {
   height = 5;
-  width = nose_d * cos((180 - 360 / 6) / 2) * 3;
+  // Remove 0.2 from diameter on each side to account for bend.
+  bend_thickness = 0.2 / sin((180 - 360 / 6) / 2);
+  width = (nose_d - 2 * bend_thickness) * cos((180 - 360 / 6) / 2) * 3;
   
   translate([width, 0, thickness * 2]) rotate([0, 180, 0]) union() {
     difference() {
@@ -68,6 +70,7 @@ module cargo_bay_top_cap() {
 
 module cargo_bay_exterior() {
   height = 10;
+  // No need to subtract 4 * 0.2 here since bends are covered.
   width = cargo_bay_d * cos((180 - 360 / 8) / 2) * 4;
   
   difference() {
@@ -123,6 +126,7 @@ module cargo_bay_bottom_cap() {
 
 module top_section_inner_shell() {
   height = 25;
+  // No need to subtract 4 * 0.2 here since bends are covered.
   width = top_section_inner_d * cos((180 - 360 / 8) / 2) * 4;
   
   difference() {
@@ -205,7 +209,9 @@ module middle_disc() {
 
 module bottom_section() {
   height = 45;
-  width = bottom_section_d * cos((180 - 360 / 8) / 2) * 4;
+  // Remove 0.2 from diameter on each side to account for bend.
+  bend_thickness = 0.2 / sin((180 - 360 / 8) / 2);
+  width = (bottom_section_d - 2 * bend_thickness) * cos((180 - 360 / 8) / 2) * 4;
   
   difference() {
     cube([width, height, thickness]);
@@ -232,7 +238,9 @@ module bottom_section() {
 
 module bottom_ring() {
   height = 10;
-  width = bottom_ring_d * cos((180 - 360 / 8) / 2) * 4;
+  // Remove 0.2 from diameter on each side to account for bend.
+  bend_thickness = 0.2 / sin((180 - 360 / 8) / 2);
+  width = (bottom_ring_d - 2 * bend_thickness) * cos((180 - 360 / 8) / 2) * 4;
   
   difference() {
     cube([width, height, thickness]);
@@ -275,7 +283,7 @@ module build_plate() {
   translate([0, 0, -1.01]) color("gray", 0.5) cube([180, 180, 1]);
 }
 
-build_plate();
+//build_plate();
 
 translate([0, 170, 0]) nose_exterior();
 translate([30, 170, 0]) nose_exterior();
