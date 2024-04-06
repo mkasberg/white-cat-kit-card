@@ -70,11 +70,26 @@ module cargo_bay_top_cap() {
 
 module cargo_bay_exterior() {
   height = 10;
-  // No need to subtract 4 * 0.2 here since bends are covered.
-  width = cargo_bay_d * cos((180 - 360 / 8) / 2) * 4;
+  // extra_r for the bend caps.
+  extra_r = 3 * 0.2 / sin((180 - 360 / 6) / 2);
+  width = (cargo_bay_d + 2 * extra_r) * cos((180 - 360 / 8) / 2) * 4;
   
   difference() {
-    cube([width, height, thickness]);
+    union() {
+      cube([width, height, thickness]);
+
+      difference() {
+        translate([0 * width / 4, 0, 0]) rotate([0, 0, 90]) big_bend_cap(height);
+        translate([-10, -1, -1]) cube([10, height + 2, thickness + 2]);
+      }
+      translate([1 * width / 4, 0, 0]) rotate([0, 0, 90]) big_bend_cap(height);
+      translate([2 * width / 4, 0, 0]) rotate([0, 0, 90]) big_bend_cap(height);
+      translate([3 * width / 4, 0, 0]) rotate([0, 0, 90]) big_bend_cap(height);
+      difference() {
+        translate([4 * width / 4, 0, 0]) rotate([0, 0, 90]) big_bend_cap(height);
+        translate([width, -1, -1]) cube([10, height + 2, thickness + 2]);
+      }
+    }
     
     translate([0 * width / 4, -1, 0]) rotate([0, 0, 90]) bend_cut(8, height+2, covered=true);
     translate([1 * width / 4, -1, 0]) rotate([0, 0, 90]) bend_cut(8, height+2, covered=true);
@@ -84,18 +99,6 @@ module cargo_bay_exterior() {
     
     translate([-1, 7, thickness - 0.4]) cube([width + 2, 0.4, 1]);
     translate([-1, 3, thickness - 0.4]) cube([width + 2, 0.4, 1]);
-  }
-  
-  difference() {
-    translate([0 * width / 4, 0, 0]) rotate([0, 0, 90]) big_bend_cap(height);
-    translate([-10, -1, -1]) cube([10, height + 2, thickness + 2]);
-  }
-  translate([1 * width / 4, 0, 0]) rotate([0, 0, 90]) big_bend_cap(height);
-  translate([2 * width / 4, 0, 0]) rotate([0, 0, 90]) big_bend_cap(height);
-  translate([3 * width / 4, 0, 0]) rotate([0, 0, 90]) big_bend_cap(height);
-  difference() {
-    translate([4 * width / 4, 0, 0]) rotate([0, 0, 90]) big_bend_cap(height);
-    translate([width, -1, -1]) cube([10, height + 2, thickness + 2]);
   }
   
   translate([width / 8, height, 0]) rotate([0, 0, 90]) clip();
@@ -126,11 +129,26 @@ module cargo_bay_bottom_cap() {
 
 module top_section_inner_hull() {
   height = 25;
-  // No need to subtract 4 * 0.2 here since bends are covered.
-  width = top_section_inner_d * cos((180 - 360 / 8) / 2) * 4;
+  // extra_r for the bend caps.
+  extra_r = 3 * 0.2 / sin((180 - 360 / 6) / 2);
+  width = (top_section_inner_d + 2 * extra_r) * cos((180 - 360 / 8) / 2) * 4;
   
   difference() {
-    cube([width, height, thickness]);
+    union() {
+      cube([width, height, thickness]);
+
+      difference() {
+        translate([0 * width / 4, 0, 0]) rotate([0, 0, 90]) big_bend_cap(height);
+        translate([-10, -1, -1]) cube([10, height + 2, thickness + 2]);
+      }
+      translate([1 * width / 4, 0, 0]) rotate([0, 0, 90]) big_bend_cap(height);
+      translate([2 * width / 4, 0, 0]) rotate([0, 0, 90]) big_bend_cap(height);
+      translate([3 * width / 4, 0, 0]) rotate([0, 0, 90]) big_bend_cap(height);
+      difference() {
+        translate([4 * width / 4, 0, 0]) rotate([0, 0, 90]) big_bend_cap(height);
+        translate([width, -1, -1]) cube([10, height + 2, thickness + 2]);
+      }
+    }
     
     translate([0 * width / 4, -1, 0]) rotate([0, 0, 90]) bend_cut(8, height+2, covered=true);
     translate([1 * width / 4, -1, 0]) rotate([0, 0, 90]) bend_cut(8, height+2, covered=true);
@@ -139,17 +157,7 @@ module top_section_inner_hull() {
     translate([4 * width / 4, -1, 0]) rotate([0, 0, 90]) bend_cut(8, height+2, covered=true);
   }
   
-  difference() {
-    translate([0 * width / 4, 0, 0]) rotate([0, 0, 90]) big_bend_cap(height);
-    translate([-10, -1, -1]) cube([10, height + 2, thickness + 2]);
-  }
-  translate([1 * width / 4, 0, 0]) rotate([0, 0, 90]) big_bend_cap(height);
-  translate([2 * width / 4, 0, 0]) rotate([0, 0, 90]) big_bend_cap(height);
-  translate([3 * width / 4, 0, 0]) rotate([0, 0, 90]) big_bend_cap(height);
-  difference() {
-    translate([4 * width / 4, 0, 0]) rotate([0, 0, 90]) big_bend_cap(height);
-    translate([width, -1, -1]) cube([10, height + 2, thickness + 2]);
-  }
+
   
   translate([width / 8, height, 0]) rotate([0, 0, 90]) clip();
   translate([width / 8, 0, 0]) rotate([0, 0, -90]) clip();
