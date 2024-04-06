@@ -160,7 +160,8 @@ module top_section_inner_hull() {
 
 module top_section_outer_hull() {
   height = 15;
-  width = top_section_outer_d * cos((180 - 360 / 8) / 2) * 4;
+  extra_ring_r = (thickness - 0.2 * 3) / sin((180 - 360 / 6) / 2);
+  width = (top_section_outer_d + 2 * extra_ring_r) * cos((180 - 360 / 8) / 2) * 4;
 
   difference() {
     union() {
