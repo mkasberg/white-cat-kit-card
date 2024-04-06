@@ -4,8 +4,8 @@ module clip_half(thickness = 1.8) {
   translate([0, -1, 0]) linear_extrude(thickness) {
     polygon([
       [0, 0],
-      [0, 4.4],
-      [0.4, 4.4],
+      [0, 4.8],
+      [0.2, 4.8],
       [1.4, 3.6],
       [1.4, 3.2],
       [0.8, 1 + 1.8 + 0.2],
