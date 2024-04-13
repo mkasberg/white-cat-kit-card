@@ -71,7 +71,7 @@ module cargo_bay_top_cap() {
 module cargo_bay_exterior() {
   height = 10;
   // extra_r for the bend caps.
-  extra_r = 3 * 0.2 / sin((180 - 360 / 6) / 2);
+  extra_r = 3 * 0.2 / sin((180 - 360 / 8) / 2);
   width = (cargo_bay_d + 2 * extra_r) * cos((180 - 360 / 8) / 2) * 4;
   
   difference() {
