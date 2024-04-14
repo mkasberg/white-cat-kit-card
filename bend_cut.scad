@@ -15,6 +15,9 @@ module bend_cut(sides, length, covered = false, thickness = 1.8) {
       [w, 0]
     ]);
   }
+
+  // Don't allow the tip of the triangle near the bend to be too close and interfere with bend thickness.
+  translate([0, -0.1, 0]) cube([length, 0.2, thickness - 0.2]);
 }
 
 module big_bend_cap(length, thickness = 1.8) {
@@ -44,6 +47,9 @@ module transition_bend_cut(sides_left, sides_right, length, thickness = 1.8) {
       [w_l, 0]
     ]);
   }
+
+  // Don't allow the tip of the triangle near the bend to be too close and interfere with bend thickness.
+  translate([0, -0.1, 0]) cube([length, 0.2, thickness - 0.2]);
 }
 
 module test_bend_covered() {
@@ -74,4 +80,4 @@ module test_transition_bend() {
 
 test_bend();
 translate([0, 20, 0]) test_bend_covered();
-translate([0, 40, 0]) !test_transition_bend();
+translate([0, 40, 0]) test_transition_bend();
