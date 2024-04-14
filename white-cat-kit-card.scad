@@ -124,6 +124,8 @@ module cargo_bay_bottom_cap() {
     for (i = [0:(top_outer_hull_sides/2 - 1)]) {
       rotate([0, 0, 2*i * 360 / top_outer_hull_sides]) translate([top_outer_r - 0.1, -(thickness + 0.4) / 2, -1]) cube([thickness + 0.2, thickness + 0.4, thickness + 2]);
     }
+
+    translate([0, 0, -1]) cylinder(h = thickness + 2, d = top_section_inner_d - 8, $fn=90);
   }
 }
 
