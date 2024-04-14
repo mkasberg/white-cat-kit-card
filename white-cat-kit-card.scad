@@ -266,8 +266,8 @@ module bottom_ring_hull(side_a = true) {
   
   if (side_a) {
     difference() {
-      translate([side_w / 2, 2, 0]) sphere(d = side_w - 2, $fn=36);
-      translate([-2, -2, -10 + thickness - 0.01]) cube([10, 10, 10]);
+      translate([side_w / 2, 7, 0]) sphere(d = side_w - 0.6, $fn=36);
+      translate([-2, 0, -10 + thickness - 0.01]) cube([10, 10, 10]);
     }
   }
   
