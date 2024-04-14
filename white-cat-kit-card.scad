@@ -23,6 +23,8 @@ bottom_section_d = 18;
 bottom_ring_d = 26;
 bottom_disc_d = middle_d;
 
+cargo_bay_sides = 24;
+
 module nose_exterior() {
   height = 5;
   // Remove 0.2 from diameter on each side to account for bend.
@@ -50,16 +52,16 @@ module nose_exterior() {
 }
 
 module cargo_bay_top_cap() {
-  hole_r = cargo_bay_d / 2 * sin((180 - 360 / 8) / 2) - thickness;
+  hole_r = cargo_bay_d / 2 * sin((180 - 360 / cargo_bay_sides) / 2) - thickness;
   nose_hole_r = nose_d / 2 * sin((180 - 360 / 6) / 2) - thickness;
 
   difference() {
     cylinder(h = thickness, d = cargo_bay_d + 2, $fn = 90);
     
-    rotate([0, 0, 0 * 360 / 8]) translate([hole_r, 0, 0]) clip_hole();
-    rotate([0, 0, 3 * 360 / 8]) translate([hole_r, 0, 0]) clip_hole();
-    rotate([0, 0, 4 * 360 / 8]) translate([hole_r, 0, 0]) clip_hole();
-    rotate([0, 0, 7 * 360 / 8]) translate([hole_r, 0, 0]) clip_hole();
+    rotate([0, 0, 0 * 360 / cargo_bay_sides]) translate([hole_r, 0, 0]) clip_hole();
+    rotate([0, 0, (cargo_bay_sides / 2 - 1) * 360 / cargo_bay_sides]) translate([hole_r, 0, 0]) clip_hole();
+    rotate([0, 0, (cargo_bay_sides / 2) * 360 / cargo_bay_sides]) translate([hole_r, 0, 0]) clip_hole();
+    rotate([0, 0, (cargo_bay_sides - 1) * 360 / cargo_bay_sides]) translate([hole_r, 0, 0]) clip_hole();
     
     rotate([0, 0, 0 * 360 / 6]) translate([nose_hole_r, 0, 0]) clip_hole();
     rotate([0, 0, 2 * 360 / 6]) translate([nose_hole_r, 0, 0]) clip_hole();
@@ -71,8 +73,8 @@ module cargo_bay_top_cap() {
 module cargo_bay_exterior() {
   height = 10;
   // extra_r for the bend caps.
-  extra_r = 3 * 0.2 / sin((180 - 360 / 8) / 2);
-  width = (cargo_bay_d + 2 * extra_r) * cos((180 - 360 / 8) / 2) * 4;
+  extra_r = 3 * 0.2 / sin((180 - 360 / cargo_bay_sides) / 2);
+  width = (cargo_bay_d /*+ 2 * extra_r*/) * cos((180 - 360 / cargo_bay_sides) / 2) * (cargo_bay_sides / 2);
   
   difference() {
     union() {
@@ -90,35 +92,34 @@ module cargo_bay_exterior() {
         translate([width, -1, -1]) cube([10, height + 2, thickness + 2]);
       }
     }
-    
-    translate([0 * width / 4, -1, 0]) rotate([0, 0, 90]) bend_cut(8, height+2, covered=true);
-    translate([1 * width / 4, -1, 0]) rotate([0, 0, 90]) bend_cut(8, height+2, covered=true);
-    translate([2 * width / 4, -1, 0]) rotate([0, 0, 90]) bend_cut(8, height+2, covered=true);
-    translate([3 * width / 4, -1, 0]) rotate([0, 0, 90]) bend_cut(8, height+2, covered=true);
-    translate([4 * width / 4, -1, 0]) rotate([0, 0, 90]) bend_cut(8, height+2, covered=true);
+
+    for (i = [0:cargo_bay_sides/2]) {
+      is_covered = i % (cargo_bay_sides / 8) == 0;
+      translate([i * width / (cargo_bay_sides / 2), -1, 0]) rotate([0, 0, 90]) bend_cut(cargo_bay_sides, height+2, covered=is_covered);
+    }
     
     translate([-1, 7, thickness - 0.4]) cube([width + 2, 0.4, 1]);
     translate([-1, 3, thickness - 0.4]) cube([width + 2, 0.4, 1]);
   }
   
-  translate([width / 8, height, 0]) rotate([0, 0, 90]) clip();
-  translate([width / 8, 0, 0]) rotate([0, 0, -90]) clip();
+  translate([width / cargo_bay_sides, height, 0]) rotate([0, 0, 90]) clip();
+  translate([width / cargo_bay_sides, 0, 0]) rotate([0, 0, -90]) clip();
   
-  translate([7 * width / 8, height, 0]) rotate([0, 0, 90]) clip();
-  translate([7 * width / 8, 0, 0]) rotate([0, 0, -90]) clip();
+  translate([(cargo_bay_sides-1) * width / cargo_bay_sides, height, 0]) rotate([0, 0, 90]) clip();
+  translate([(cargo_bay_sides-1) * width / cargo_bay_sides, 0, 0]) rotate([0, 0, -90]) clip();
 }
 
 module cargo_bay_bottom_cap() {
-  hole_r = cargo_bay_d / 2 * sin((180 - 360 / 8) / 2) - thickness;
+  hole_r = cargo_bay_d / 2 * sin((180 - 360 / cargo_bay_sides) / 2) - thickness;
   top_section_r = top_section_inner_d / 2 * sin((180 - 360 / 8) / 2) - thickness;
 
   difference() {
     cylinder(h = thickness, d = cargo_bay_d + 2, $fn = 90);
     
-    rotate([0, 0, 0 * 360 / 8]) translate([hole_r, 0, 0]) clip_hole();
-    rotate([0, 0, 3 * 360 / 8]) translate([hole_r, 0, 0]) clip_hole();
-    rotate([0, 0, 4 * 360 / 8]) translate([hole_r, 0, 0]) clip_hole();
-    rotate([0, 0, 7 * 360 / 8]) translate([hole_r, 0, 0]) clip_hole();
+    rotate([0, 0, 0 * 360 / cargo_bay_sides]) translate([hole_r, 0, 0]) clip_hole();
+    rotate([0, 0, (cargo_bay_sides / 2 - 1) * 360 / cargo_bay_sides]) translate([hole_r, 0, 0]) clip_hole();
+    rotate([0, 0, (cargo_bay_sides / 2) * 360 / cargo_bay_sides]) translate([hole_r, 0, 0]) clip_hole();
+    rotate([0, 0, (cargo_bay_sides - 1) * 360 / cargo_bay_sides]) translate([hole_r, 0, 0]) clip_hole();
     
     rotate([0, 0, 0 * 360 / 8]) translate([top_section_r, 0, 0]) clip_hole();
     rotate([0, 0, 3 * 360 / 8]) translate([top_section_r, 0, 0]) clip_hole();
@@ -310,7 +311,7 @@ module build_plate() {
 translate([0, 170, 0]) nose_exterior();
 translate([30, 170, 0]) nose_exterior();
 
-translate([0, 150, 0]) cargo_bay_exterior();
+translate([0, 150, 0]) !cargo_bay_exterior();
 translate([0, 130, 0]) cargo_bay_exterior();
 
 translate([0, 95, 0]) top_section_inner_hull();
