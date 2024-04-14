@@ -203,12 +203,15 @@ module middle_disc() {
   }
 }
 
-module bottom_section_hull() {
+module bottom_section_hull(side_a = true) {
   height = 45;
   // Remove 0.2 from diameter on each side to account for bend.
   bend_thickness = 0.2 / sin((180 - 360 / bottom_hull_sides) / 2);
   width = (bottom_section_d - 2 * bend_thickness) * cos((180 - 360 / bottom_hull_sides) / 2) * (bottom_hull_sides / 2);
   
+  side_w = width / (bottom_hull_sides / 2);
+  inner_w = side_w - 2;
+
   difference() {
     cube([width, height, thickness]);
     
@@ -220,13 +223,20 @@ module bottom_section_hull() {
     translate([5 * width / 8, -1, 0]) rotate([0, 0, 90]) bend_cut(16, height+2);
     translate([3 * width / 4, -1, 0]) rotate([0, 0, 90]) transition_bend_cut(16, 8, height+2);
     translate([4 * width / 4, -1, 0]) rotate([0, 0, 90]) bend_cut(8, height+2);
+
+    if (!side_a) {
+      translate([side_w / 2, 14, 0.75 * inner_w + thickness - 1]) sphere(d = 1.5 * inner_w, $fn=12);
+    }
   }
 
-  inner_w = width / 4 - 2;
-
-  translate([1, 12, thickness - 0.01]) cube([inner_w, inner_w * 2, thickness]);
-  translate([1, 23, thickness - 0.01]) cube([inner_w, inner_w, thickness]);
-  translate([1, 29, thickness - 0.01]) cube([inner_w, inner_w, thickness]);
+  if (side_a) {
+    translate([1, 12, thickness - 0.01]) cube([inner_w, inner_w * 2, thickness]);
+    translate([1, 23, thickness - 0.01]) cube([inner_w, inner_w, thickness]);
+    translate([1, 29, thickness - 0.01]) cube([inner_w, inner_w, thickness]);
+    translate([3.5 * side_w, 5, thickness]) rotate([-90, 0, 0]) cylinder(d = 1, h = height/2-10, $fn=24);
+  } else {
+    translate([3.5 * side_w, 5, thickness]) rotate([-90, 0, 0]) cylinder(d = 1, h = height-10, $fn=24);
+  }
   
   translate([width / bottom_hull_sides, height, 0]) rotate([0, 0, 90]) clip();
   translate([width / bottom_hull_sides, 0, 0]) rotate([0, 0, -90]) clip();
@@ -294,8 +304,8 @@ translate([50, 95, 0]) top_section_inner_hull();
 translate([0, 40, 0]) top_section_outer_hull();
 translate([58, 85, 0]) rotate([0, 0, 180]) top_section_outer_hull();
 
-translate([65, 40, 0]) bottom_section_hull();
-translate([95, 40, 0]) bottom_section_hull();
+translate([65, 40, 0]) bottom_section_hull(true);
+translate([95, 40, 0]) bottom_section_hull(false);
 
 translate([0, 10, 0]) bottom_ring_hull();
 translate([0, 25, 0]) bottom_ring_hull();
