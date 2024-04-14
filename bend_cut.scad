@@ -28,6 +28,24 @@ module big_bend_cap(length, thickness = 1.8) {
   }
 }
 
+// When rotated anticlockwise about the Z axis, sides_left will calculate the left angle.
+module transition_bend_cut(sides_left, sides_right, length, thickness = 1.8) {
+  angle_l = 360 / sides_left / 2;
+  angle_r = 360 / sides_right / 2;
+  h = thickness;
+  w_l = h * tan(angle_l);
+  w_r = h * tan(angle_r);
+  translate_h = -h - 0.2;
+
+  translate([0, 0, translate_h]) rotate([0, 90, 0]) rotate([0, 0, 90]) linear_extrude(length) {
+    polygon([
+      [-w_r, 0],
+      [0, 2*h],
+      [w_l, 0]
+    ]);
+  }
+}
+
 module test_bend_covered() {
   difference() {
     union() {
@@ -47,5 +65,13 @@ module test_bend() {
   }
 }
 
+module test_transition_bend() {
+  difference() {
+    cube([20, 10, 1.8]);
+    translate([10, -5, 0]) rotate([0, 0, 90]) transition_bend_cut(4, 16, 30);
+  }
+}
+
 test_bend();
 translate([0, 20, 0]) test_bend_covered();
+translate([0, 40, 0]) !test_transition_bend();
