@@ -106,6 +106,7 @@ module cargo_bay_exterior() {
 module cargo_bay_bottom_cap() {
   hole_r = cargo_bay_d / 2 * sin((180 - 360 / cargo_bay_sides) / 2) - thickness;
   top_section_r = top_section_inner_d / 2 * sin((180 - 360 / top_inner_hull_sides) / 2) - thickness;
+  top_outer_r = top_section_outer_d / 2 * sin((180 - 360 / top_outer_hull_sides) / 2) - thickness;
 
   difference() {
     cylinder(h = thickness, d = cargo_bay_d + 2, $fn = 90);
@@ -119,6 +120,10 @@ module cargo_bay_bottom_cap() {
     rotate([0, 0, (top_inner_hull_sides / 2 - 1) * 360 / top_inner_hull_sides]) translate([top_section_r, 0, 0]) clip_hole();
     rotate([0, 0, (top_inner_hull_sides / 2) * 360 / top_inner_hull_sides]) translate([top_section_r, 0, 0]) clip_hole();
     rotate([0, 0, (top_inner_hull_sides - 1) * 360 / top_inner_hull_sides]) translate([top_section_r, 0, 0]) clip_hole();
+
+    for (i = [0:(top_outer_hull_sides/2 - 1)]) {
+      rotate([0, 0, 2*i * 360 / top_outer_hull_sides]) translate([top_outer_r - 0.1, -(thickness + 0.4) / 2, -1]) cube([thickness + 0.2, thickness + 0.4, thickness + 2]);
+    }
   }
 }
 
@@ -145,7 +150,7 @@ module top_section_inner_hull() {
 
 module top_section_outer_hull() {
   height = 15;
-  beam_height = 25 - height;
+  beam_height = 25 - height + 3;
   extra_ring_r = (thickness - 0.2 * 3) / sin((180 - 360 / top_outer_hull_sides) / 2);
   width = (top_section_outer_d + 2 * extra_ring_r) * cos((180 - 360 / top_outer_hull_sides) / 2) * (top_outer_hull_sides / 2);
 
@@ -163,10 +168,9 @@ module top_section_outer_hull() {
     translate([-1, 9, thickness - 0.4]) cube([width + 2, 0.4, 1]);
   }
 
-  // TODO Make these beams go into the cargo bay bottom disc
   side_w = width / (top_outer_hull_sides / 2);
   for (i = [0:3]) {
-    translate([(2*i) * side_w + (side_w - 1.8) / 2, height - 0.01, 0]) cube([1.8, beam_height, thickness]);
+    translate([(2*i) * side_w + (side_w - thickness) / 2, height - 0.01, 0]) cube([thickness, beam_height, thickness]);
   }
   
   translate([width / top_outer_hull_sides, 0, 0]) rotate([0, 0, -90]) clip();
