@@ -201,6 +201,8 @@ module middle_disc() {
     rotate([0, 0, (bottom_hull_sides / 2 - 1) * 360 / bottom_hull_sides]) translate([bottom_hole_r, 0, 0]) clip_hole();
     rotate([0, 0, (bottom_hull_sides / 2) * 360 / bottom_hull_sides]) translate([bottom_hole_r, 0, 0]) clip_hole();
     rotate([0, 0, (bottom_hull_sides - 1) * 360 / bottom_hull_sides]) translate([bottom_hole_r, 0, 0]) clip_hole();
+
+    translate([0, 0, -1]) cylinder(h = thickness + 2, d = bottom_section_d - 8, $fn=90);
   }
 }
 
