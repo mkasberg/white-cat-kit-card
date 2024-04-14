@@ -93,7 +93,7 @@ module cargo_bay_exterior() {
 
   side_w = width / (cargo_bay_sides / 2);
   for (i = [0:3]) {
-    translate([(3*i + 1) * side_w + (side_w - 1.8) / 2, 0, thickness - 0.001]) cube([1.8, height, 1]);
+    translate([3*i * side_w + (side_w - 1.8) / 2, 0, thickness - 0.001]) cube([1.8, height, 1]);
   }
   
   translate([width / cargo_bay_sides, height, 0]) rotate([0, 0, 90]) clip();
@@ -122,7 +122,7 @@ module cargo_bay_bottom_cap() {
     rotate([0, 0, (top_inner_hull_sides - 1) * 360 / top_inner_hull_sides]) translate([top_section_r, 0, 0]) clip_hole();
 
     for (i = [0:(top_outer_hull_sides/2 - 1)]) {
-      rotate([0, 0, 2*i * 360 / top_outer_hull_sides]) translate([top_outer_r - 0.1, -(thickness + 0.4) / 2, -1]) cube([thickness + 0.2, thickness + 0.4, thickness + 2]);
+      rotate([0, 0, 2*i * 360 / top_outer_hull_sides]) translate([top_outer_r - 0.2, -(thickness + 0.6) / 2, -1]) cube([thickness + 0.4, thickness + 0.6, thickness + 2]);
     }
 
     translate([0, 0, -1]) cylinder(h = thickness + 2, d = top_section_inner_d - 8, $fn=90);
@@ -192,11 +192,10 @@ module middle_disc() {
     rotate([0, 0, (top_inner_hull_sides / 2) * 360 / top_inner_hull_sides]) translate([top_inner_hole_r, 0, 0]) clip_hole();
     rotate([0, 0, (top_inner_hull_sides - 1) * 360 / top_inner_hull_sides]) translate([top_inner_hole_r, 0, 0]) clip_hole();
     
-    // Rotate an extra (360 / top_outer_hull_sides / 2) degrees to line up beams.
-    rotate([0, 0, 0.5 * 360 / top_outer_hull_sides]) translate([top_outer_hole_r, 0, 0]) clip_hole();
-    rotate([0, 0, (top_outer_hull_sides / 2 - 1 + 0.5) * 360 / top_outer_hull_sides]) translate([top_outer_hole_r, 0, 0]) clip_hole();
-    rotate([0, 0, (top_outer_hull_sides / 2 + 0.5) * 360 / top_outer_hull_sides]) translate([top_outer_hole_r, 0, 0]) clip_hole();
-    rotate([0, 0, (top_outer_hull_sides - 1 + 0.5) * 360 / top_outer_hull_sides]) translate([top_outer_hole_r, 0, 0]) clip_hole();
+    rotate([0, 0, 0 * 360 / top_outer_hull_sides]) translate([top_outer_hole_r, 0, 0]) clip_hole();
+    rotate([0, 0, (top_outer_hull_sides / 2 - 1) * 360 / top_outer_hull_sides]) translate([top_outer_hole_r, 0, 0]) clip_hole();
+    rotate([0, 0, (top_outer_hull_sides / 2) * 360 / top_outer_hull_sides]) translate([top_outer_hole_r, 0, 0]) clip_hole();
+    rotate([0, 0, (top_outer_hull_sides - 1) * 360 / top_outer_hull_sides]) translate([top_outer_hole_r, 0, 0]) clip_hole();
 
     rotate([0, 0, 0 * 360 / bottom_hull_sides]) translate([bottom_hole_r, 0, 0]) clip_hole();
     rotate([0, 0, (bottom_hull_sides / 2 - 1) * 360 / bottom_hull_sides]) translate([bottom_hole_r, 0, 0]) clip_hole();
