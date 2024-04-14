@@ -245,12 +245,14 @@ module bottom_section_hull(side_a = true) {
   translate([(bottom_hull_sides - 1) * width / bottom_hull_sides, 0, 0]) rotate([0, 0, -90]) clip();
 }
 
-module bottom_ring_hull() {
+module bottom_ring_hull(side_a = true) {
   height = 10;
   // Remove 0.2 from diameter on each side to account for bend.
   bend_thickness = 0.2 / sin((180 - 360 / bottom_ring_sides) / 2);
   width = (bottom_ring_d - 2 * bend_thickness) * cos((180 - 360 / bottom_ring_sides) / 2) * (bottom_ring_sides / 2);
   
+  side_w = width / (bottom_ring_sides / 2);
+
   difference() {
     cube([width, height, thickness]);
     
@@ -259,6 +261,13 @@ module bottom_ring_hull() {
     }
 
     translate([-1, 4, thickness - 0.4]) cube([width + 2, 0.4, 1]);
+  }
+  
+  if (side_a) {
+    difference() {
+      translate([side_w / 2, 2, 0]) sphere(d = side_w - 2, $fn=36);
+      translate([-2, -2, -10 + thickness - 0.01]) cube([10, 10, 10]);
+    }
   }
   
   translate([width / bottom_ring_sides, 0, 0]) rotate([0, 0, -90]) clip();
@@ -307,8 +316,8 @@ translate([58, 85, 0]) rotate([0, 0, 180]) top_section_outer_hull();
 translate([65, 40, 0]) bottom_section_hull(true);
 translate([95, 40, 0]) bottom_section_hull(false);
 
-translate([0, 10, 0]) bottom_ring_hull();
-translate([0, 25, 0]) bottom_ring_hull();
+translate([0, 10, 0]) bottom_ring_hull(true);
+translate([0, 25, 0]) bottom_ring_hull(false);
 
 
 translate([150, 140, 0]) cargo_bay_top_cap();
