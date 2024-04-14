@@ -24,6 +24,7 @@ bottom_ring_d = 26;
 bottom_disc_d = middle_d;
 
 cargo_bay_sides = 24;
+top_inner_hull_sides = 8;
 
 module nose_exterior() {
   height = 5;
@@ -71,35 +72,24 @@ module cargo_bay_top_cap() {
 }
 
 module cargo_bay_exterior() {
-  height = 10;
-  // extra_r for the bend caps.
-  extra_r = 3 * 0.2 / sin((180 - 360 / cargo_bay_sides) / 2);
-  width = (cargo_bay_d /*+ 2 * extra_r*/) * cos((180 - 360 / cargo_bay_sides) / 2) * (cargo_bay_sides / 2);
+  height = 10;  // Remove 0.2 from diameter on each side to account for bend.
+  bend_thickness = 0.2 / sin((180 - 360 / 8) / 2);
+  width = (cargo_bay_d - 2 * bend_thickness) * cos((180 - 360 / cargo_bay_sides) / 2) * (cargo_bay_sides / 2);
   
   difference() {
-    union() {
-      cube([width, height, thickness]);
-
-      difference() {
-        translate([0 * width / 4, 0, 0]) rotate([0, 0, 90]) big_bend_cap(height);
-        translate([-10, -1, -1]) cube([10, height + 2, thickness + 2]);
-      }
-      translate([1 * width / 4, 0, 0]) rotate([0, 0, 90]) big_bend_cap(height);
-      translate([2 * width / 4, 0, 0]) rotate([0, 0, 90]) big_bend_cap(height);
-      translate([3 * width / 4, 0, 0]) rotate([0, 0, 90]) big_bend_cap(height);
-      difference() {
-        translate([4 * width / 4, 0, 0]) rotate([0, 0, 90]) big_bend_cap(height);
-        translate([width, -1, -1]) cube([10, height + 2, thickness + 2]);
-      }
-    }
+    cube([width, height, thickness]);
 
     for (i = [0:cargo_bay_sides/2]) {
-      is_covered = i % (cargo_bay_sides / 8) == 0;
-      translate([i * width / (cargo_bay_sides / 2), -1, 0]) rotate([0, 0, 90]) bend_cut(cargo_bay_sides, height+2, covered=is_covered);
+      translate([i * width / (cargo_bay_sides / 2), -1, 0]) rotate([0, 0, 90]) bend_cut(cargo_bay_sides, height+2);
     }
     
     translate([-1, 7, thickness - 0.4]) cube([width + 2, 0.4, 1]);
     translate([-1, 3, thickness - 0.4]) cube([width + 2, 0.4, 1]);
+  }
+
+  side_w = width / (cargo_bay_sides / 2);
+  for (i = [0:3]) {
+    translate([(3*i + 1) * side_w + (side_w - 1.8) / 2, 0, thickness - 0.001]) cube([1.8, height, 1]);
   }
   
   translate([width / cargo_bay_sides, height, 0]) rotate([0, 0, 90]) clip();
@@ -311,7 +301,7 @@ module build_plate() {
 translate([0, 170, 0]) nose_exterior();
 translate([30, 170, 0]) nose_exterior();
 
-translate([0, 150, 0]) !cargo_bay_exterior();
+translate([0, 150, 0]) cargo_bay_exterior();
 translate([0, 130, 0]) cargo_bay_exterior();
 
 translate([0, 95, 0]) top_section_inner_hull();
