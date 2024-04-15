@@ -29,35 +29,64 @@ top_outer_hull_sides = 16;
 bottom_hull_sides = 8;
 bottom_ring_sides = 12;
 
+
 module nose_exterior() {
-  height = 5;
-  // Remove 0.2 from diameter on each side to account for bend.
-  bend_thickness = 0.2 / sin((180 - 360 / 6) / 2);
-  width = (nose_d - 2 * bend_thickness) * cos((180 - 360 / 6) / 2) * 3;
-  
-  translate([width, 0, thickness * 2]) rotate([0, 180, 0]) union() {
-    difference() {
-      cube([width, height, thickness * 2]);
-      
-      translate([0 * width / 3, -1, thickness]) rotate([0, 0, 90]) bend_cut(6, height+2);
-      translate([1 * width / 3, -1, thickness]) rotate([0, 0, 90]) bend_cut(6, height+2);
-      translate([2 * width / 3, -1, thickness]) rotate([0, 0, 90]) bend_cut(6, height+2);
-      translate([3 * width / 3, -1, thickness]) rotate([0, 0, 90]) bend_cut(6, height+2);
-      
-      translate([-1, height + thickness, 0])
-        rotate([-45, 0, 0])
-        translate([0, -2 * height, 0])
-        cube([width + 2, 2 * height, 2 * thickness]);
+  // Outside (flat hex side) diameter nose_d = 14
+  // 45 deg slope over/up 2
+  // interior diameter 10
+
+  inner_side_w = 5 / sin(60);
+  outer_side_w = 7 / sin(60);
+  diag_len_a = sqrt(2^2 + 2^2);
+  nose_h = 3;
+  tolerance = 0.1;
+
+  difference() {
+    rotate([0, 0, 360/6/2]) cylinder(d=10 / sin(60), h=thickness, $fn=6);
+
+    for(i = [0:5]) {
+      rotate([0, 0, i * 360/6]) translate([5, -inner_side_w/2 - 1, 0]) rotate([0, 0, 90]) bend_cut(8, inner_side_w + 2);
     }
-    
-    translate([width / 6, 0, thickness]) rotate([0, 0, -90]) clip();
-    translate([5 * width / 6, 0, thickness]) rotate([0, 0, -90]) clip();
+  }
+
+  for(i = [0:5]) {
+    rotate([0, 0, i * 360/6]) {
+      difference() {
+        linear_extrude(thickness) {
+          polygon([
+            [4.99, inner_side_w / 2 - tolerance],
+            [5 + diag_len_a, outer_side_w / 2 - tolerance],
+            [5 + diag_len_a + nose_h, outer_side_w / 2 - tolerance],
+            [5 + diag_len_a + nose_h, -(outer_side_w / 2 - tolerance)],
+            [5 + diag_len_a, -(outer_side_w / 2 - tolerance)],
+            [4.99, -(inner_side_w / 2 - tolerance)]
+          ]);
+        }
+
+        translate([5, -inner_side_w/2 - 1, 0]) rotate([0, 0, 90]) bend_cut(8, inner_side_w + 2);
+        translate([5 + diag_len_a, -outer_side_w/2 - 1, 0]) rotate([0, 0, 90]) bend_cut(8, outer_side_w + 2);
+
+        diag_angle = atan((outer_side_w/2 - inner_side_w/2) / (diag_len_a));
+        translate([4.98, inner_side_w / 2 - tolerance, 0]) rotate([0, 0, diag_angle]) bend_cut(6, 10);
+        translate([4.98, -(inner_side_w / 2 - tolerance), 0]) rotate([0, 0, -diag_angle]) bend_cut(6, 10);
+
+        translate([5 + diag_len_a - 1, outer_side_w / 2 - tolerance, 0]) bend_cut(6, nose_h + 2);
+        translate([5 + diag_len_a - 1, -(outer_side_w / 2 - tolerance), 0]) bend_cut(6, nose_h + 2);
+      }
+
+      if (i % 3 == 0) {
+        translate([5 + diag_len_a + nose_h, 0, 0]) clip();
+      } else {
+        translate([5 + diag_len_a + nose_h - 0.01, -0.9, 0]) cube([5.6, 1.8, 1.8]);
+      }
+    }
   }
 }
 
 module cargo_bay_top_cap() {
   hole_r = cargo_bay_d / 2 * sin((180 - 360 / cargo_bay_sides) / 2) - thickness;
-  nose_hole_r = nose_d / 2 * sin((180 - 360 / 6) / 2) - thickness;
+  // Don't multiply by sin here since the nose_d is to flat hexagon sides.
+  nose_hole_r = nose_d / 2 - thickness + 0.4;
 
   difference() {
     cylinder(h = thickness, d = cargo_bay_d + 2, $fn = 90);
@@ -67,10 +96,9 @@ module cargo_bay_top_cap() {
     rotate([0, 0, (cargo_bay_sides / 2) * 360 / cargo_bay_sides]) translate([hole_r, 0, 0]) clip_hole();
     rotate([0, 0, (cargo_bay_sides - 1) * 360 / cargo_bay_sides]) translate([hole_r, 0, 0]) clip_hole();
     
-    rotate([0, 0, 0 * 360 / 6]) translate([nose_hole_r, 0, 0]) clip_hole();
-    rotate([0, 0, 2 * 360 / 6]) translate([nose_hole_r, 0, 0]) clip_hole();
-    rotate([0, 0, 3 * 360 / 6]) translate([nose_hole_r, 0, 0]) clip_hole();
-    rotate([0, 0, 5 * 360 / 6]) translate([nose_hole_r, 0, 0]) clip_hole();
+    for (i = [0:5]) {
+      rotate([0, 0, i * 360 / 6]) translate([nose_hole_r, 0, 0]) clip_hole();
+    }
   }
 }
 
@@ -302,10 +330,9 @@ module build_plate() {
   translate([0, 0, -1.01]) color("gray", 0.5) cube([180, 180, 1]);
 }
 
-//build_plate();
+build_plate();
 
-translate([0, 170, 0]) nose_exterior();
-translate([30, 170, 0]) nose_exterior();
+translate([70, 20, 0]) nose_exterior();
 
 translate([0, 150, 0]) cargo_bay_exterior();
 translate([0, 130, 0]) cargo_bay_exterior();
