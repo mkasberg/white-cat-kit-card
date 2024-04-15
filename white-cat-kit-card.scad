@@ -349,7 +349,7 @@ translate([0, 95, 0]) top_section_inner_hull();
 translate([50, 95, 0]) top_section_inner_hull();
 
 translate([0, 40, 0]) top_section_outer_hull();
-translate([58, 85, 0]) rotate([0, 0, 180]) top_section_outer_hull();
+translate([54, 85, 0]) rotate([0, 0, 180]) top_section_outer_hull();
 
 translate([65, 40, 0]) bottom_section_hull(true);
 translate([95, 40, 0]) bottom_section_hull(false);
