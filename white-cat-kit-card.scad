@@ -15,7 +15,7 @@ use <clip.scad>;
 
 thickness = 1.8;
 nose_d = 12;
-cargo_bay_d = 50;
+cargo_bay_d = 46;
 top_section_inner_d = 26;
 top_section_outer_d = 31 + 2 * thickness;
 middle_d = 42;
@@ -104,8 +104,8 @@ module cargo_bay_top_cap() {
     translate([0, 0, thickness - 0.4]) difference() {
       cylinder(d = cargo_bay_d - 6, h = thickness, $fn = 90);
 
-      translate([-7, -cargo_bay_d, 0]) cube([14, 2 * cargo_bay_d, thickness + 0.1]);
-      translate([-cargo_bay_d, -7, 0]) cube([2 * cargo_bay_d, 14, thickness + 0.1]);
+      translate([-6, -cargo_bay_d, 0]) cube([12, 2 * cargo_bay_d, thickness + 0.1]);
+      translate([-cargo_bay_d, -6, 0]) cube([2 * cargo_bay_d, 12, thickness + 0.1]);
     }
   }
 }
