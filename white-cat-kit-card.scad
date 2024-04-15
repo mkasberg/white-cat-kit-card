@@ -111,7 +111,7 @@ module cargo_bay_top_cap() {
 }
 
 module cargo_bay_exterior() {
-  height = 10;
+  height = 8;
   // Remove 0.2 from diameter on each side to account for bend.
   bend_thickness = 0.2 / sin((180 - 360 / cargo_bay_sides) / 2);
   width = (cargo_bay_d - 2 * bend_thickness) * cos((180 - 360 / cargo_bay_sides) / 2) * (cargo_bay_sides / 2);
@@ -123,7 +123,7 @@ module cargo_bay_exterior() {
       translate([i * width / (cargo_bay_sides / 2), -1, 0]) rotate([0, 0, 90]) bend_cut(cargo_bay_sides, height+2);
     }
     
-    translate([-1, 7, thickness - 0.4]) cube([width + 2, 0.4, 1]);
+    translate([-1, 5, thickness - 0.4]) cube([width + 2, 0.4, 1]);
     translate([-1, 3, thickness - 0.4]) cube([width + 2, 0.4, 1]);
   }
 
