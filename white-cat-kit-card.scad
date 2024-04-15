@@ -243,7 +243,7 @@ module middle_disc() {
 }
 
 module bottom_section_hull(side_a = true) {
-  height = 45;
+  height = 40;
   // Remove 0.2 from diameter on each side to account for bend.
   bend_thickness = 0.2 / sin((180 - 360 / bottom_hull_sides) / 2);
   width = (bottom_section_d - 2 * bend_thickness) * cos((180 - 360 / bottom_hull_sides) / 2) * (bottom_hull_sides / 2);
@@ -264,17 +264,17 @@ module bottom_section_hull(side_a = true) {
     translate([4 * width / 4, -1, 0]) rotate([0, 0, 90]) bend_cut(8, height+2);
 
     if (!side_a) {
-      translate([side_w / 2, 14, 0.75 * inner_w + thickness - 1]) sphere(d = 1.5 * inner_w, $fn=12);
+      translate([side_w / 2, 12, 0.75 * inner_w + thickness - 1]) sphere(d = 1.5 * inner_w, $fn=12);
     }
   }
 
   if (side_a) {
-    translate([1, 12, thickness - 0.01]) cube([inner_w, inner_w * 2, thickness]);
-    translate([1, 23, thickness - 0.01]) cube([inner_w, inner_w, thickness]);
-    translate([1, 29, thickness - 0.01]) cube([inner_w, inner_w, thickness]);
-    translate([3.5 * side_w, 5, thickness]) rotate([-90, 0, 0]) cylinder(d = 1, h = height/2-10, $fn=24);
+    translate([1, 10, thickness - 0.01]) cube([inner_w, inner_w * 2, thickness]);
+    translate([1, 21, thickness - 0.01]) cube([inner_w, inner_w, thickness]);
+    translate([1, 27, thickness - 0.01]) cube([inner_w, inner_w, thickness]);
+    translate([3.5 * side_w, 5, thickness]) rotate([-90, 0, 0]) cylinder(d = 1.2, h = height/2-10, $fn=24);
   } else {
-    translate([3.5 * side_w, 5, thickness]) rotate([-90, 0, 0]) cylinder(d = 1, h = height-10, $fn=24);
+    translate([3.5 * side_w, 5, thickness]) rotate([-90, 0, 0]) cylinder(d = 1.2, h = height-10, $fn=24);
   }
   
   translate([width / bottom_hull_sides, height, 0]) rotate([0, 0, 90]) clip();
@@ -285,7 +285,7 @@ module bottom_section_hull(side_a = true) {
 }
 
 module bottom_ring_hull(side_a = true) {
-  height = 10;
+  height = 8;
   // Remove 0.2 from diameter on each side to account for bend.
   bend_thickness = 0.2 / sin((180 - 360 / bottom_ring_sides) / 2);
   width = (bottom_ring_d - 2 * bend_thickness) * cos((180 - 360 / bottom_ring_sides) / 2) * (bottom_ring_sides / 2);
@@ -299,12 +299,12 @@ module bottom_ring_hull(side_a = true) {
       translate([i * width / (bottom_ring_sides / 2), -1, 0]) rotate([0, 0, 90]) bend_cut(bottom_ring_sides, height+2);
     }
 
-    translate([-1, 4, thickness - 0.4]) cube([width + 2, 0.4, 1]);
+    translate([-1, 2, thickness - 0.4]) cube([width + 2, 0.4, 1]);
   }
   
   if (side_a) {
     difference() {
-      translate([side_w / 2, 7, 0]) sphere(d = side_w - 0.6, $fn=36);
+      translate([side_w / 2, 5, 0]) sphere(d = side_w - 0.6, $fn=36);
       translate([-2, 0, -10 + thickness - 0.01]) cube([10, 10, 10]);
     }
   }
