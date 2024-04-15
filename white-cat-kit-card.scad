@@ -14,7 +14,7 @@ use <bend_cut.scad>;
 use <clip.scad>;
 
 thickness = 1.8;
-nose_d = 14;
+nose_d = 12;
 cargo_bay_d = 50;
 top_section_inner_d = 26;
 top_section_outer_d = 31 + 2 * thickness;
@@ -31,21 +31,22 @@ bottom_ring_sides = 12;
 
 
 module nose_exterior() {
-  // Outside (flat hex side) diameter nose_d = 14
+  // Outside (flat hex side) diameter nose_d = 12
   // 45 deg slope over/up 2
-  // interior diameter 10
+  // interior diameter 8
 
-  inner_side_w = 5 / sin(60);
-  outer_side_w = 7 / sin(60);
+  inner_r = 4;
+  inner_side_w = inner_r / sin(60);
+  outer_side_w = 6 / sin(60);
   diag_len_a = sqrt(2^2 + 2^2);
   nose_h = 3;
   tolerance = 0.1;
 
   difference() {
-    rotate([0, 0, 360/6/2]) cylinder(d=10 / sin(60), h=thickness, $fn=6);
+    rotate([0, 0, 360/6/2]) cylinder(d=2*inner_r / sin(60), h=thickness, $fn=6);
 
     for(i = [0:5]) {
-      rotate([0, 0, i * 360/6]) translate([5, -inner_side_w/2 - 1, 0]) rotate([0, 0, 90]) bend_cut(8, inner_side_w + 2);
+      rotate([0, 0, i * 360/6]) translate([inner_r, -inner_side_w/2 - 1, 0]) rotate([0, 0, 90]) bend_cut(8, inner_side_w + 2);
     }
   }
 
@@ -54,30 +55,30 @@ module nose_exterior() {
       difference() {
         linear_extrude(thickness) {
           polygon([
-            [4.99, inner_side_w / 2 - tolerance],
-            [5 + diag_len_a, outer_side_w / 2 - tolerance],
-            [5 + diag_len_a + nose_h, outer_side_w / 2 - tolerance],
-            [5 + diag_len_a + nose_h, -(outer_side_w / 2 - tolerance)],
-            [5 + diag_len_a, -(outer_side_w / 2 - tolerance)],
-            [4.99, -(inner_side_w / 2 - tolerance)]
+            [inner_r - 0.01, inner_side_w / 2 - tolerance],
+            [inner_r + diag_len_a, outer_side_w / 2 - tolerance],
+            [inner_r + diag_len_a + nose_h, outer_side_w / 2 - tolerance],
+            [inner_r + diag_len_a + nose_h, -(outer_side_w / 2 - tolerance)],
+            [inner_r + diag_len_a, -(outer_side_w / 2 - tolerance)],
+            [inner_r - 0.01, -(inner_side_w / 2 - tolerance)]
           ]);
         }
 
-        translate([5, -inner_side_w/2 - 1, 0]) rotate([0, 0, 90]) bend_cut(8, inner_side_w + 2);
-        translate([5 + diag_len_a, -outer_side_w/2 - 1, 0]) rotate([0, 0, 90]) bend_cut(8, outer_side_w + 2);
+        translate([inner_r, -inner_side_w/2 - 1, 0]) rotate([0, 0, 90]) bend_cut(8, inner_side_w + 2);
+        translate([inner_r + diag_len_a, -outer_side_w/2 - 1, 0]) rotate([0, 0, 90]) bend_cut(8, outer_side_w + 2);
 
         diag_angle = atan((outer_side_w/2 - inner_side_w/2) / (diag_len_a));
-        translate([4.98, inner_side_w / 2 - tolerance, 0]) rotate([0, 0, diag_angle]) bend_cut(6, 10);
-        translate([4.98, -(inner_side_w / 2 - tolerance), 0]) rotate([0, 0, -diag_angle]) bend_cut(6, 10);
+        translate([inner_r - 0.02, inner_side_w / 2 - tolerance, 0]) rotate([0, 0, diag_angle]) bend_cut(6, 10);
+        translate([inner_r - 0.02, -(inner_side_w / 2 - tolerance), 0]) rotate([0, 0, -diag_angle]) bend_cut(6, 10);
 
-        translate([5 + diag_len_a - 1, outer_side_w / 2 - tolerance, 0]) bend_cut(6, nose_h + 2);
-        translate([5 + diag_len_a - 1, -(outer_side_w / 2 - tolerance), 0]) bend_cut(6, nose_h + 2);
+        translate([inner_r + diag_len_a - 1, outer_side_w / 2 - tolerance, 0]) bend_cut(6, nose_h + 2);
+        translate([inner_r + diag_len_a - 1, -(outer_side_w / 2 - tolerance), 0]) bend_cut(6, nose_h + 2);
       }
 
       if (i % 3 == 0) {
-        translate([5 + diag_len_a + nose_h, 0, 0]) clip();
+        translate([inner_r + diag_len_a + nose_h, 0, 0]) clip();
       } else {
-        translate([5 + diag_len_a + nose_h - 0.01, -0.9, 0]) cube([5.6, 1.8, 1.8]);
+        translate([inner_r + diag_len_a + nose_h - 0.01, -0.9, 0]) cube([5.6, 1.8, 1.8]);
       }
     }
   }
