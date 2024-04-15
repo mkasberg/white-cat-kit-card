@@ -90,7 +90,7 @@ module cargo_bay_top_cap() {
   nose_hole_r = nose_d / 2 - thickness + 0.4;
 
   difference() {
-    cylinder(h = thickness, d = cargo_bay_d + 2, $fn = 90);
+    cylinder(h = thickness + 0.2, d = cargo_bay_d + 2, $fn = 90);
     
     rotate([0, 0, 0 * 360 / cargo_bay_sides]) translate([hole_r, 0, 0]) clip_hole();
     rotate([0, 0, (cargo_bay_sides / 2 - 1) * 360 / cargo_bay_sides]) translate([hole_r, 0, 0]) clip_hole();
@@ -104,8 +104,8 @@ module cargo_bay_top_cap() {
     translate([0, 0, thickness - 0.4]) difference() {
       cylinder(d = cargo_bay_d - 6, h = thickness, $fn = 90);
 
-      translate([-6, -cargo_bay_d, 0]) cube([12, 2 * cargo_bay_d, thickness + 0.1]);
-      translate([-cargo_bay_d, -6, 0]) cube([2 * cargo_bay_d, 12, thickness + 0.1]);
+      translate([-6, -cargo_bay_d, 0]) cube([12, 2 * cargo_bay_d, thickness + 0.2 + 0.1]);
+      translate([-cargo_bay_d, -6, 0]) cube([2 * cargo_bay_d, 12, thickness + 0.2 + 0.1]);
     }
   }
 }
