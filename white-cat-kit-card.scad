@@ -23,9 +23,9 @@ bottom_section_d = 18;
 bottom_ring_d = 26;
 bottom_disc_d = middle_d;
 
-cargo_bay_sides = 24;
-top_inner_hull_sides = 16;
-top_outer_hull_sides = 16;
+cargo_bay_sides = 18;
+top_inner_hull_sides = 12;
+top_outer_hull_sides = 18;
 bottom_hull_sides = 8;
 bottom_ring_sides = 12;
 
@@ -128,8 +128,8 @@ module cargo_bay_exterior() {
   }
 
   side_w = width / (cargo_bay_sides / 2);
-  for (i = [0:3]) {
-    translate([3*i * side_w + (side_w - 1.6) / 2, 0, thickness - 0.001]) cube([1.6, height, 1]);
+  for (i = [0:2]) {
+    translate([(3*i + 1) * side_w + (side_w - 1.6) / 2, 0, thickness - 0.001]) cube([1.6, height, 1]);
   }
   
   translate([width / cargo_bay_sides, height, 0]) rotate([0, 0, 90]) clip();
@@ -207,8 +207,8 @@ module top_section_outer_hull() {
   }
 
   side_w = width / (top_outer_hull_sides / 2);
-  for (i = [0:3]) {
-    translate([(2*i) * side_w + (side_w - thickness) / 2, height - 0.01, 0]) cube([thickness, beam_height, thickness]);
+  for (i = [0:2]) {
+    translate([(3*i + 1) * side_w + (side_w - thickness) / 2, height - 0.01, 0]) cube([thickness, beam_height, thickness]);
   }
   
   translate([width / top_outer_hull_sides, 0, 0]) rotate([0, 0, -90]) clip();
@@ -349,7 +349,7 @@ translate([0, 95, 0]) top_section_inner_hull();
 translate([50, 95, 0]) top_section_inner_hull();
 
 translate([0, 40, 0]) top_section_outer_hull();
-translate([54, 85, 0]) rotate([0, 0, 180]) top_section_outer_hull();
+translate([62, 85, 0]) rotate([0, 0, 180]) top_section_outer_hull();
 
 translate([65, 40, 0]) bottom_section_hull(true);
 translate([95, 40, 0]) bottom_section_hull(false);
