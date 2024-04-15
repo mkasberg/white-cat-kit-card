@@ -99,6 +99,13 @@ module cargo_bay_top_cap() {
     for (i = [0:5]) {
       rotate([0, 0, i * 360 / 6]) translate([nose_hole_r, 0, 0]) clip_hole();
     }
+
+    translate([0, 0, thickness - 0.4]) difference() {
+      cylinder(d = cargo_bay_d - 6, h = thickness, $fn = 90);
+
+      translate([-7, -cargo_bay_d, 0]) cube([14, 2 * cargo_bay_d, thickness + 0.1]);
+      translate([-cargo_bay_d, -7, 0]) cube([2 * cargo_bay_d, 14, thickness + 0.1]);
+    }
   }
 }
 
@@ -330,7 +337,7 @@ module build_plate() {
   translate([0, 0, -1.01]) color("gray", 0.5) cube([180, 180, 1]);
 }
 
-build_plate();
+//build_plate();
 
 translate([70, 20, 0]) nose_exterior();
 
