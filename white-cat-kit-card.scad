@@ -13,7 +13,7 @@ https://3dwithus.com/how-to-design-kit-card-models
 use <bend_cut.scad>;
 use <clip.scad>;
 
-thickness = 1.8;
+thickness = 1.6;
 nose_d = 12;
 cargo_bay_d = 46;
 top_section_inner_d = 26;
@@ -78,7 +78,7 @@ module nose_exterior() {
       if (i % 3 == 0) {
         translate([inner_r + diag_len_a + nose_h, 0, 0]) clip();
       } else {
-        translate([inner_r + diag_len_a + nose_h - 0.01, -0.9, 0]) cube([5.6, 1.8, 1.8]);
+        translate([inner_r + diag_len_a + nose_h - 0.01, -thickness/2, 0]) cube([5.6, thickness, thickness]);
       }
     }
   }
@@ -129,7 +129,7 @@ module cargo_bay_exterior() {
 
   side_w = width / (cargo_bay_sides / 2);
   for (i = [0:3]) {
-    translate([3*i * side_w + (side_w - 1.8) / 2, 0, thickness - 0.001]) cube([1.8, height, 1]);
+    translate([3*i * side_w + (side_w - 1.6) / 2, 0, thickness - 0.001]) cube([1.6, height, 1]);
   }
   
   translate([width / cargo_bay_sides, height, 0]) rotate([0, 0, 90]) clip();
