@@ -19,15 +19,15 @@ cargo_bay_d = 46;
 top_section_inner_d = 26;
 top_section_outer_d = 30 + 2 * thickness;
 middle_d = 40;
-bottom_section_d = 20;
-bottom_ring_d = 26;
-bottom_disc_d = middle_d;
+bottom_section_d = 22;
+bottom_ring_d = 28;
+bottom_disc_d = 36;
 
 cargo_bay_sides = 18;
 top_inner_hull_sides = 12;
 top_outer_hull_sides = 18;
-bottom_hull_sides = 10;
-bottom_ring_sides = 14;
+bottom_hull_sides = 12;
+bottom_ring_sides = 12;
 
 
 module nose_exterior() {
@@ -309,7 +309,7 @@ module bottom_ring_hull(side_a = true) {
   }
   
   if (side_a) {
-    translate([side_w/2, 5, thickness]) cylinder(d = side_w - 1, h = 0.6 + 0.01, $fn=36);
+    translate([5*side_w/2, 5, thickness]) cylinder(d = side_w - 2, h = 0.6 + 0.01, $fn=36);
   }
   
   translate([width / bottom_ring_sides, 0, 0]) rotate([0, 0, -90]) clip();
