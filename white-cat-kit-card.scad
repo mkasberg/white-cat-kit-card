@@ -113,7 +113,7 @@ module cargo_bay_top_cap() {
 module cargo_bay_exterior() {
   height = 8;
   // Remove 0.2 from diameter on each side to account for bend.
-  bend_thickness = 0.2 / sin((180 - 360 / cargo_bay_sides) / 2);
+  bend_thickness = 2 * 0.2 / sin((180 - 360 / cargo_bay_sides) / 2);
   width = (cargo_bay_d - 2 * bend_thickness) * cos((180 - 360 / cargo_bay_sides) / 2) * (cargo_bay_sides / 2);
   
   difference() {
@@ -168,7 +168,7 @@ module cargo_bay_bottom_cap() {
 module top_section_inner_hull() {
   height = 21;
   // Remove 0.2 from diameter on each side to account for bend.
-  bend_thickness = 0.2 / sin((180 - 360 / top_inner_hull_sides) / 2);
+  bend_thickness = 2 * 0.2 / sin((180 - 360 / top_inner_hull_sides) / 2);
   width = (top_section_inner_d - 2 * bend_thickness) * cos((180 - 360 / top_inner_hull_sides) / 2) * (top_inner_hull_sides / 2);
   
   difference() {
@@ -255,7 +255,7 @@ module satellite_dish(d) {
 module bottom_section_hull(side_a = true) {
   height = 40;
   // Remove 0.2 from diameter on each side to account for bend.
-  bend_thickness = 0.2 / sin((180 - 360 / bottom_hull_sides) / 2);
+  bend_thickness = 2 * 0.2 / sin((180 - 360 / bottom_hull_sides) / 2);
   width = (bottom_section_d - 2 * bend_thickness) * cos((180 - 360 / bottom_hull_sides) / 2) * (bottom_hull_sides / 2);
   
   side_w = width / (bottom_hull_sides / 2);
@@ -293,7 +293,7 @@ module bottom_section_hull(side_a = true) {
 module bottom_ring_hull(side_a = true) {
   height = 8;
   // Remove 0.2 from diameter on each side to account for bend.
-  bend_thickness = 0.2 / sin((180 - 360 / bottom_ring_sides) / 2);
+  bend_thickness = 2 * 0.2 / sin((180 - 360 / bottom_ring_sides) / 2);
   width = (bottom_ring_d - 2 * bend_thickness) * cos((180 - 360 / bottom_ring_sides) / 2) * (bottom_ring_sides / 2);
   
   side_w = width / (bottom_ring_sides / 2);
