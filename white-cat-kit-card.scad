@@ -188,7 +188,7 @@ module top_section_inner_hull() {
 
 module top_section_outer_hull() {
   height = 12;
-  beam_height = 21 - height + 3;
+  beam_height = 21 - height + 6;
   extra_ring_r = (thickness - 0.2 * 3) / sin((180 - 360 / top_outer_hull_sides) / 2);
   width = (top_section_outer_d + 2 * extra_ring_r) * cos((180 - 360 / top_outer_hull_sides) / 2) * (top_outer_hull_sides / 2);
 
