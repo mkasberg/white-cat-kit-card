@@ -12,6 +12,7 @@ https://3dwithus.com/how-to-design-kit-card-models
 
 use <bend_cut.scad>;
 use <clip.scad>;
+use <flat_clip.scad>;
 
 thickness = 1.6;
 nose_d = 12;
@@ -92,10 +93,10 @@ module cargo_bay_top_cap() {
   difference() {
     cylinder(h = thickness + 0.2, d = cargo_bay_d + 2, $fn = 90);
     
-    rotate([0, 0, 0.5 * 360 / cargo_bay_sides]) translate([hole_r, 0, 0]) clip_hole();
-    rotate([0, 0, (cargo_bay_sides / 2 - 1 + 0.5) * 360 / cargo_bay_sides]) translate([hole_r, 0, 0]) clip_hole();
-    rotate([0, 0, (cargo_bay_sides / 2 + 0.5) * 360 / cargo_bay_sides]) translate([hole_r, 0, 0]) clip_hole();
-    rotate([0, 0, (cargo_bay_sides - 1 + 0.5) * 360 / cargo_bay_sides]) translate([hole_r, 0, 0]) clip_hole();
+    rotate([0, 0, 0.5 * 360 / cargo_bay_sides]) translate([hole_r, 0, 0]) flat_clip_hole(4);
+    rotate([0, 0, (cargo_bay_sides / 2 - 1 + 0.5) * 360 / cargo_bay_sides]) translate([hole_r, 0, 0]) flat_clip_hole(4);
+    rotate([0, 0, (cargo_bay_sides / 2 + 0.5) * 360 / cargo_bay_sides]) translate([hole_r, 0, 0]) flat_clip_hole(4);
+    rotate([0, 0, (cargo_bay_sides - 1 + 0.5) * 360 / cargo_bay_sides]) translate([hole_r, 0, 0]) flat_clip_hole(4);
     
     for (i = [0:5]) {
       rotate([0, 0, i * 360 / 6]) translate([nose_hole_r, 0, 0]) clip_hole();
@@ -132,11 +133,11 @@ module cargo_bay_exterior() {
     translate([(3*i + 1) * side_w + (side_w - 1.6) / 2, 0, thickness - 0.001]) cube([1.6, height, 1]);
   }
   
-  translate([width / cargo_bay_sides, height, 0]) rotate([0, 0, 90]) clip();
-  translate([width / cargo_bay_sides, 0, 0]) rotate([0, 0, -90]) clip();
+  translate([width / cargo_bay_sides, height, 0]) rotate([0, 0, 90]) flat_clip(4);
+  translate([width / cargo_bay_sides, 0, 0]) rotate([0, 0, -90]) flat_clip(4);
   
-  translate([(cargo_bay_sides-1) * width / cargo_bay_sides, height, 0]) rotate([0, 0, 90]) clip();
-  translate([(cargo_bay_sides-1) * width / cargo_bay_sides, 0, 0]) rotate([0, 0, -90]) clip();
+  translate([(cargo_bay_sides-1) * width / cargo_bay_sides, height, 0]) rotate([0, 0, 90]) flat_clip(4);
+  translate([(cargo_bay_sides-1) * width / cargo_bay_sides, 0, 0]) rotate([0, 0, -90]) flat_clip(4);
 }
 
 module cargo_bay_bottom_cap() {
