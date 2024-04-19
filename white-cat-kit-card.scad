@@ -15,20 +15,25 @@ use <clip.scad>;
 use <flat_clip.scad>;
 
 thickness = 1.6;
-nose_d = 14;
-cargo_bay_d = 46;
-top_section_inner_d = 26;
-top_section_outer_d = 30 + 2 * thickness;
-middle_d = 40;
-bottom_section_d = 22;
-bottom_ring_d = 28;
-bottom_disc_d = 36;
 
 cargo_bay_sides = 18;
 top_inner_hull_sides = 12;
 top_outer_hull_sides = 18;
 bottom_hull_sides = 12;
 bottom_ring_sides = 12;
+
+// nose_d is the shorter diameter (flat hex edge).
+nose_d = 14;
+// All diameters below are the longer diameter (vertex to vertex).
+cargo_bay_d = 46;
+top_section_inner_d = 26;
+top_section_outer_d = 33;
+middle_d = 40;
+bottom_section_d = 22;
+bottom_ring_d = 28;
+bottom_disc_d = 36;
+
+
 
 
 module nose_exterior() {
@@ -202,7 +207,7 @@ module top_section_outer_hull() {
   height = 12;
   beam_height = 21 - height + 6;
   extra_ring_r = (thickness - 0.2 * 3) / sin((180 - 360 / top_outer_hull_sides) / 2);
-  extra_tolerance = 1.0;
+  extra_tolerance = 0.0;
   width = (top_section_outer_d + 2 * extra_ring_r) * cos((180 - 360 / top_outer_hull_sides) / 2) * (top_outer_hull_sides / 2) - extra_tolerance;
 
   difference() {
