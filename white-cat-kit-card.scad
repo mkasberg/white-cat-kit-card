@@ -180,7 +180,7 @@ module top_section_inner_hull() {
   height = 21;
   // Remove 0.2 from diameter on each side to account for bend.
   bend_thickness = 2 * 0.2 / sin((180 - 360 / top_inner_hull_sides) / 2);
-  extra_tolerance = 0.1;
+  extra_tolerance = 0.05;
   width = (top_section_inner_d - 2 * bend_thickness) * cos((180 - 360 / top_inner_hull_sides) / 2) * (top_inner_hull_sides / 2) - extra_tolerance;
   
   difference() {
@@ -202,7 +202,7 @@ module top_section_outer_hull() {
   height = 12;
   beam_height = 21 - height + 6;
   extra_ring_r = (thickness - 0.2 * 3) / sin((180 - 360 / top_outer_hull_sides) / 2);
-  extra_tolerance = 0.4;
+  extra_tolerance = 1.0;
   width = (top_section_outer_d + 2 * extra_ring_r) * cos((180 - 360 / top_outer_hull_sides) / 2) * (top_outer_hull_sides / 2) - extra_tolerance;
 
   difference() {
@@ -311,7 +311,7 @@ module bottom_ring_hull(side_a = true) {
   height = 8;
   // Remove 0.2 from diameter on each side to account for bend.
   bend_thickness = 2 * 0.2 / sin((180 - 360 / bottom_ring_sides) / 2);
-  extra_tolerance = 0.4;
+  extra_tolerance = 0.8;
   width = (bottom_ring_d - 2 * bend_thickness) * cos((180 - 360 / bottom_ring_sides) / 2) * (bottom_ring_sides / 2) - extra_tolerance;
   
   side_w = width / (bottom_ring_sides / 2);
