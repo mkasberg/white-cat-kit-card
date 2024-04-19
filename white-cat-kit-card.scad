@@ -15,7 +15,7 @@ use <clip.scad>;
 use <flat_clip.scad>;
 
 thickness = 1.6;
-nose_d = 12;
+nose_d = 14;
 cargo_bay_d = 46;
 top_section_inner_d = 26;
 top_section_outer_d = 30 + 2 * thickness;
@@ -32,13 +32,13 @@ bottom_ring_sides = 12;
 
 
 module nose_exterior() {
-  // Outside (flat hex side) diameter nose_d = 12
+  // Outside (flat hex side) diameter nose_d = 14
   // 45 deg slope over/up 2
-  // interior diameter 8
+  // interior diameter 10
 
-  inner_r = 4;
+  inner_r = 5;
   inner_side_w = inner_r / sin(60);
-  outer_side_w = 6 / sin(60);
+  outer_side_w = 7 / sin(60);
   diag_len_a = sqrt(2^2 + 2^2);
   nose_h = 3;
   tolerance = 0.1;
