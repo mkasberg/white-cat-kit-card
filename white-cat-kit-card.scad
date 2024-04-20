@@ -206,9 +206,9 @@ module top_section_inner_hull() {
 module top_section_outer_hull() {
   height = 12;
   beam_height = 21 - height + 6;
-  extra_ring_r = (thickness - 0.2 * 3) / sin((180 - 360 / top_outer_hull_sides) / 2);
+  // Simply ignoring the marginal extra width from the wider ring seems to work best here.
   extra_tolerance = 0.0;
-  width = (top_section_outer_d + 2 * extra_ring_r) * cos((180 - 360 / top_outer_hull_sides) / 2) * (top_outer_hull_sides / 2) - extra_tolerance;
+  width = (top_section_outer_d) * cos((180 - 360 / top_outer_hull_sides) / 2) * (top_outer_hull_sides / 2) - extra_tolerance;
 
   difference() {
     union() {
@@ -217,7 +217,7 @@ module top_section_outer_hull() {
     }
     
     for (i = [0:top_outer_hull_sides/2]) {
-      translate([i * width / (top_outer_hull_sides/2), -1, thickness - 0.2]) rotate([0, 0, 90]) bend_cut(top_outer_hull_sides, height+beam_height+2);
+      translate([i * width / (top_outer_hull_sides/2), -1, thickness]) rotate([0, 0, 90]) bend_cut(top_outer_hull_sides, height+beam_height+2);
     }
 
     translate([-1, 9, thickness - 0.4]) cube([width + 2, 0.4, 1]);
