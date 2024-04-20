@@ -6,17 +6,17 @@ module bend_cut(sides, length, thickness = 1.6) {
   h = thickness;
   w = 2 * h * tan(angle / 2);
 
-  translate([0, 0, -h]) rotate([0, 90, 0]) rotate([0, 0, 90]) {
+  translate([0, 0, -3*h]) rotate([0, 90, 0]) rotate([0, 0, 90]) {
     difference() {
       linear_extrude(length) {
         polygon([
-          [-w, 0],
-          [0, 2*h],
-          [w, 0]
+          [-2*w, 0],
+          [0, 4*h],
+          [2*w, 0]
         ]);
       }
 
-      translate([-w, 2*h - 0.2, -1]) cube([2*w, h, length + 2]);
+      translate([-2*w, 4*h - 0.2, -1]) cube([4*w, 4*h, length + 2]);
     }
   }
 }
