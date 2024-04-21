@@ -26,13 +26,12 @@ bottom_ring_sides = 12;
 nose_d = 14;
 // All diameters below are the longer diameter (vertex to vertex).
 cargo_bay_d = 46;
-top_section_inner_d = 26;
+top_section_inner_d = 27;
 top_section_outer_d = 33;
 middle_d = 40;
 bottom_section_d = 22;
 bottom_ring_d = 28;
 bottom_disc_d = 36;
-
 
 
 
@@ -206,9 +205,9 @@ module top_section_inner_hull() {
 module top_section_outer_hull() {
   height = 12;
   beam_height = 21 - height + 6;
-  // Simply ignoring the marginal extra width from the wider ring seems to work best here.
+  extra_ring_r = (thickness - 0.2 * 3) / sin((180 - 360 / top_outer_hull_sides) / 2);
   extra_tolerance = 0.0;
-  width = (top_section_outer_d) * cos((180 - 360 / top_outer_hull_sides) / 2) * (top_outer_hull_sides / 2) - extra_tolerance;
+  width = (top_section_outer_d + 2 * extra_ring_r) * cos((180 - 360 / top_outer_hull_sides) / 2) * (top_outer_hull_sides / 2) - extra_tolerance;
 
   difference() {
     union() {
@@ -236,8 +235,8 @@ module top_section_outer_hull() {
 
 module middle_disc() {
   top_inner_hole_r = top_section_inner_d / 2 * sin((180 - 360 / top_inner_hull_sides) / 2) - thickness;
-  top_outer_hole_r = top_section_outer_d / 2 * sin((180 - 360 / 8) / 2) - thickness;
-  bottom_hole_r = bottom_section_d / 2 * sin((180 - 360 / 8) / 2) - thickness;
+  top_outer_hole_r = top_section_outer_d / 2 * sin((180 - 360 / top_outer_hull_sides) / 2) - thickness;
+  bottom_hole_r = bottom_section_d / 2 * sin((180 - 360 / bottom_hull_sides) / 2) - thickness;
 
   difference() {
     cylinder(h = thickness, d = middle_d, $fn = 90);
@@ -277,7 +276,7 @@ module bottom_section_hull(side_a = true) {
   height = 40;
   // Remove 0.2 from diameter on each side to account for bend.
   bend_thickness = 2 * 0.2 / sin((180 - 360 / bottom_hull_sides) / 2);
-  extra_tolerance = 0.2;
+  extra_tolerance = 0.0;
   width = (bottom_section_d - 2 * bend_thickness) * cos((180 - 360 / bottom_hull_sides) / 2) * (bottom_hull_sides / 2) - extra_tolerance;
   
   side_w = width / (bottom_hull_sides / 2);
@@ -316,7 +315,7 @@ module bottom_ring_hull(side_a = true) {
   height = 8;
   // Remove 0.2 from diameter on each side to account for bend.
   bend_thickness = 2 * 0.2 / sin((180 - 360 / bottom_ring_sides) / 2);
-  extra_tolerance = 0.8;
+  extra_tolerance = 0.0;
   width = (bottom_ring_d - 2 * bend_thickness) * cos((180 - 360 / bottom_ring_sides) / 2) * (bottom_ring_sides / 2) - extra_tolerance;
   
   side_w = width / (bottom_ring_sides / 2);
@@ -340,8 +339,8 @@ module bottom_ring_hull(side_a = true) {
 }
 
 module bottom_disc() {
-  bottom_section_r = bottom_section_d / 2 * sin((180 - 360 / 8) / 2) - thickness;
-  bottom_ring_r = bottom_ring_d / 2 * sin((180 - 360 / 8) / 2) - thickness;
+  bottom_section_r = bottom_section_d / 2 * sin((180 - 360 / bottom_hull_sides) / 2) - thickness;
+  bottom_ring_r = bottom_ring_d / 2 * sin((180 - 360 / bottom_ring_sides) / 2) - thickness;
 
   difference() {
     cylinder(h = thickness, d = bottom_disc_d, $fn = 90);
