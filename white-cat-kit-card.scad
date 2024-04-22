@@ -173,7 +173,7 @@ module cargo_bay_bottom_cap() {
     rotate([0, 0, (top_inner_hull_sides - 1 + 0.5) * 360 / top_inner_hull_sides]) translate([top_section_r, 0, 0]) flat_clip_hole(4);
 
     for (i = [0:(top_outer_hull_sides/3 - 1)]) {
-      rotate([0, 0, (3*i + 1 + 0.5) * 360 / top_outer_hull_sides]) translate([top_outer_r - 0.2, -(thickness + 0.6) / 2, -1]) cube([thickness + 0.4, thickness + 0.6, thickness + 2]);
+      rotate([0, 0, (3*i + 1 + 0.5) * 360 / top_outer_hull_sides]) translate([top_outer_r - 0.2, -(thickness + 0.6) / 2, -1]) cube([thickness + 0.6, thickness + 0.6, thickness + 2]);
     }
 
     translate([0, 0, -1]) cylinder(h = thickness + 2, d = top_section_inner_d - 10, $fn=90);
@@ -225,7 +225,7 @@ module top_section_outer_hull() {
 
   side_w = width / (top_outer_hull_sides / 2);
   for (i = [0:2]) {
-    translate([(3*i + 1) * side_w + (side_w - thickness) / 2, height - 0.01, 0]) cube([thickness, beam_height, thickness]);
+    translate([(3*i + 1) * side_w + (side_w - thickness) / 2, height - 0.01, 0]) cube([thickness, beam_height, thickness + 0.2]);
   }
   
   translate([width / top_outer_hull_sides, 0, 0]) rotate([0, 0, -90]) flat_clip(3);
