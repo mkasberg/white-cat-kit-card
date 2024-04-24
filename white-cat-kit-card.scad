@@ -168,8 +168,12 @@ module cargo_bay_bottom_cap() {
     rotate([0, 0, (3 * cargo_bay_sides / 4) * 360 / cargo_bay_sides]) translate([hole_r, 0, 0]) flat_clip_hole(4);
     
     rotate([0, 0, 0.5 * 360 / top_inner_hull_sides]) translate([top_section_r, 0, 0]) flat_clip_hole(4);
+    rotate([0, 0, (top_inner_hull_sides / 4 - 1 + 0.5) * 360 / top_inner_hull_sides]) translate([top_section_r, 0, 0]) flat_clip_hole(4);
+    rotate([0, 0, (top_inner_hull_sides / 4 + 0.5) * 360 / top_inner_hull_sides]) translate([top_section_r, 0, 0]) flat_clip_hole(4);
     rotate([0, 0, (top_inner_hull_sides / 2 - 1 + 0.5) * 360 / top_inner_hull_sides]) translate([top_section_r, 0, 0]) flat_clip_hole(4);
     rotate([0, 0, (top_inner_hull_sides / 2 + 0.5) * 360 / top_inner_hull_sides]) translate([top_section_r, 0, 0]) flat_clip_hole(4);
+    rotate([0, 0, (top_inner_hull_sides * 3 / 4 - 1 + 0.5) * 360 / top_inner_hull_sides]) translate([top_section_r, 0, 0]) flat_clip_hole(4);
+    rotate([0, 0, (top_inner_hull_sides * 3 / 4 + 0.5) * 360 / top_inner_hull_sides]) translate([top_section_r, 0, 0]) flat_clip_hole(4);
     rotate([0, 0, (top_inner_hull_sides - 1 + 0.5) * 360 / top_inner_hull_sides]) translate([top_section_r, 0, 0]) flat_clip_hole(4);
 
     for (i = [0:(top_outer_hull_sides/3 - 1)]) {
@@ -197,7 +201,10 @@ module top_section_inner_hull() {
   
   translate([width / top_inner_hull_sides, height, 0]) rotate([0, 0, 90]) flat_clip(4);
   translate([width / top_inner_hull_sides, 0, 0]) rotate([0, 0, -90]) flat_clip(4);
-  
+  translate([(top_inner_hull_sides / 2 - 1) * width / top_inner_hull_sides, height, 0]) rotate([0, 0, 90]) flat_clip(4);
+  translate([(top_inner_hull_sides / 2 - 1) * width / top_inner_hull_sides, 0, 0]) rotate([0, 0, -90]) flat_clip(4);
+  translate([(top_inner_hull_sides / 2 + 1) * width / top_inner_hull_sides, height, 0]) rotate([0, 0, 90]) flat_clip(4);
+  translate([(top_inner_hull_sides / 2 + 1) * width / top_inner_hull_sides, 0, 0]) rotate([0, 0, -90]) flat_clip(4);
   translate([(top_inner_hull_sides - 1) * width / top_inner_hull_sides, height, 0]) rotate([0, 0, 90]) flat_clip(4);
   translate([(top_inner_hull_sides - 1) * width / top_inner_hull_sides, 0, 0]) rotate([0, 0, -90]) flat_clip(4);
 }
@@ -242,8 +249,12 @@ module middle_disc() {
     cylinder(h = thickness, d = middle_d, $fn = 90);
     
     rotate([0, 0, 0.5 * 360 / top_inner_hull_sides]) translate([top_inner_hole_r, 0, 0]) flat_clip_hole(4);
+    rotate([0, 0, (top_inner_hull_sides / 4 - 1 + 0.5) * 360 / top_inner_hull_sides]) translate([top_inner_hole_r, 0, 0]) flat_clip_hole(4);
+    rotate([0, 0, (top_inner_hull_sides / 4 + 0.5) * 360 / top_inner_hull_sides]) translate([top_inner_hole_r, 0, 0]) flat_clip_hole(4);
     rotate([0, 0, (top_inner_hull_sides / 2 - 1 + 0.5) * 360 / top_inner_hull_sides]) translate([top_inner_hole_r, 0, 0]) flat_clip_hole(4);
     rotate([0, 0, (top_inner_hull_sides / 2 + 0.5) * 360 / top_inner_hull_sides]) translate([top_inner_hole_r, 0, 0]) flat_clip_hole(4);
+    rotate([0, 0, (top_inner_hull_sides * 3 / 4 - 1 + 0.5) * 360 / top_inner_hull_sides]) translate([top_inner_hole_r, 0, 0]) flat_clip_hole(4);
+    rotate([0, 0, (top_inner_hull_sides * 3 / 4 + 0.5) * 360 / top_inner_hull_sides]) translate([top_inner_hole_r, 0, 0]) flat_clip_hole(4);
     rotate([0, 0, (top_inner_hull_sides - 1 + 0.5) * 360 / top_inner_hull_sides]) translate([top_inner_hole_r, 0, 0]) flat_clip_hole(4);
     
     rotate([0, 0, 0.5 * 360 / top_outer_hull_sides]) translate([top_outer_hole_r, 0, 0]) flat_clip_hole(3);
@@ -254,8 +265,12 @@ module middle_disc() {
     rotate([0, 0, (3 * top_outer_hull_sides / 4) * 360 / top_outer_hull_sides]) translate([top_outer_hole_r, 0, 0]) flat_clip_hole(3);
 
     rotate([0, 0, 0.5 * 360 / bottom_hull_sides]) translate([bottom_hole_r, 0, 0]) flat_clip_hole(3);
+    rotate([0, 0, (bottom_hull_sides / 4 - 1 + 0.5) * 360 / bottom_hull_sides]) translate([bottom_hole_r, 0, 0]) flat_clip_hole(3);
+    rotate([0, 0, (bottom_hull_sides / 4 + 0.5) * 360 / bottom_hull_sides]) translate([bottom_hole_r, 0, 0]) flat_clip_hole(3);
     rotate([0, 0, (bottom_hull_sides / 2 - 1 + 0.5) * 360 / bottom_hull_sides]) translate([bottom_hole_r, 0, 0]) flat_clip_hole(3);
     rotate([0, 0, (bottom_hull_sides / 2 + 0.5) * 360 / bottom_hull_sides]) translate([bottom_hole_r, 0, 0]) flat_clip_hole(3);
+    rotate([0, 0, (bottom_hull_sides * 3 / 4 - 1 + 0.5) * 360 / bottom_hull_sides]) translate([bottom_hole_r, 0, 0]) flat_clip_hole(3);
+    rotate([0, 0, (bottom_hull_sides * 3 / 4 + 0.5) * 360 / bottom_hull_sides]) translate([bottom_hole_r, 0, 0]) flat_clip_hole(3);
     rotate([0, 0, (bottom_hull_sides - 1 + 0.5) * 360 / bottom_hull_sides]) translate([bottom_hole_r, 0, 0]) flat_clip_hole(3);
 
     translate([0, 0, -1]) cylinder(h = thickness + 2, d = bottom_section_d - 10, $fn=90);
@@ -306,7 +321,10 @@ module bottom_section_hull(side_a = true) {
   
   translate([width / bottom_hull_sides, height, 0]) rotate([0, 0, 90]) flat_clip(3);
   translate([width / bottom_hull_sides, 0, 0]) rotate([0, 0, -90]) flat_clip(3);
-  
+  translate([(bottom_hull_sides / 2 - 1) * width / bottom_hull_sides, height, 0]) rotate([0, 0, 90]) flat_clip(3);
+  translate([(bottom_hull_sides / 2 - 1) * width / bottom_hull_sides, 0, 0]) rotate([0, 0, -90]) flat_clip(3);
+  translate([(bottom_hull_sides / 2 + 1) * width / bottom_hull_sides, height, 0]) rotate([0, 0, 90]) flat_clip(3);
+  translate([(bottom_hull_sides / 2 + 1) * width / bottom_hull_sides, 0, 0]) rotate([0, 0, -90]) flat_clip(3);
   translate([(bottom_hull_sides - 1) * width / bottom_hull_sides, height, 0]) rotate([0, 0, 90]) flat_clip(3);
   translate([(bottom_hull_sides - 1) * width / bottom_hull_sides, 0, 0]) rotate([0, 0, -90]) flat_clip(3);
 }
@@ -335,6 +353,8 @@ module bottom_ring_hull(side_a = true) {
   }
   
   translate([width / bottom_ring_sides, 0, 0]) rotate([0, 0, -90]) flat_clip(4);
+  translate([(bottom_ring_sides / 2 - 1) * width / bottom_ring_sides, 0, 0]) rotate([0, 0, -90]) flat_clip(4);
+  translate([(bottom_ring_sides / 2 + 1) * width / bottom_ring_sides, 0, 0]) rotate([0, 0, -90]) flat_clip(4);
   translate([(bottom_ring_sides - 1) * width / bottom_ring_sides, 0, 0]) rotate([0, 0, -90]) flat_clip(4);
 }
 
@@ -346,13 +366,21 @@ module bottom_disc() {
     cylinder(h = thickness, d = bottom_disc_d, $fn = 90);
     
     rotate([0, 0, 0.5 * 360 / bottom_hull_sides]) translate([bottom_section_r, 0, 0]) flat_clip_hole(3);
+    rotate([0, 0, (bottom_hull_sides / 4 - 1 + 0.5) * 360 / bottom_hull_sides]) translate([bottom_section_r, 0, 0]) flat_clip_hole(3);
+    rotate([0, 0, (bottom_hull_sides / 4 + 0.5) * 360 / bottom_hull_sides]) translate([bottom_section_r, 0, 0]) flat_clip_hole(3);
     rotate([0, 0, (bottom_hull_sides / 2 - 1 + 0.5) * 360 / bottom_hull_sides]) translate([bottom_section_r, 0, 0]) flat_clip_hole(3);
     rotate([0, 0, (bottom_hull_sides / 2 + 0.5) * 360 / bottom_hull_sides]) translate([bottom_section_r, 0, 0]) flat_clip_hole(3);
+    rotate([0, 0, (bottom_hull_sides * 3 / 4 - 1 + 0.5) * 360 / bottom_hull_sides]) translate([bottom_section_r, 0, 0]) flat_clip_hole(3);
+    rotate([0, 0, (bottom_hull_sides * 3 / 4 + 0.5) * 360 / bottom_hull_sides]) translate([bottom_section_r, 0, 0]) flat_clip_hole(3);
     rotate([0, 0, (bottom_hull_sides - 1 + 0.5) * 360 / bottom_hull_sides]) translate([bottom_section_r, 0, 0]) flat_clip_hole(3);
     
     rotate([0, 0, 0.5 * 360 / bottom_ring_sides]) translate([bottom_ring_r, 0, 0]) flat_clip_hole(4);
+    rotate([0, 0, (bottom_ring_sides / 4 - 1 + 0.5) * 360 / bottom_ring_sides]) translate([bottom_ring_r, 0, 0]) flat_clip_hole(4);
+    rotate([0, 0, (bottom_ring_sides / 4 + 0.5) * 360 / bottom_ring_sides]) translate([bottom_ring_r, 0, 0]) flat_clip_hole(4);
     rotate([0, 0, (bottom_ring_sides / 2 - 1 + 0.5) * 360 / bottom_ring_sides]) translate([bottom_ring_r, 0, 0]) flat_clip_hole(4);
     rotate([0, 0, (bottom_ring_sides / 2 + 0.5) * 360 / bottom_ring_sides]) translate([bottom_ring_r, 0, 0]) flat_clip_hole(4);
+    rotate([0, 0, (bottom_ring_sides * 3 / 4 - 1 + 0.5) * 360 / bottom_ring_sides]) translate([bottom_ring_r, 0, 0]) flat_clip_hole(4);
+    rotate([0, 0, (bottom_ring_sides * 3 / 4 + 0.5) * 360 / bottom_ring_sides]) translate([bottom_ring_r, 0, 0]) flat_clip_hole(4);
     rotate([0, 0, (bottom_ring_sides - 1 + 0.5) * 360 / bottom_ring_sides]) translate([bottom_ring_r, 0, 0]) flat_clip_hole(4);
 
     translate([0, 0, -1]) cylinder(h = thickness + 2, d = 6, $fn = 90);
