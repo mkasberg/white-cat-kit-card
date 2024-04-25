@@ -13,6 +13,7 @@ https://3dwithus.com/how-to-design-kit-card-models
 use <bend_cut.scad>;
 use <clip.scad>;
 use <flat_clip.scad>;
+use <kit_frame.scad>;
 
 thickness = 1.6;
 
@@ -396,15 +397,15 @@ module build_plate() {
 }
 
 module layout_parts() {
-  frame_margin = 5;
+  frame_margin = 4;
   top_disc_r = (cargo_bay_d + 2) / 2;
   translate([top_disc_r + frame_margin, 180 - top_disc_r - frame_margin, 0]) cargo_bay_top_cap();
   translate([180 - top_disc_r - frame_margin, 180 - top_disc_r - frame_margin, 0]) cargo_bay_bottom_cap();
 
-  translate([90, 180 - frame_margin - top_disc_r, 0]) nose_exterior();
+  translate([90, 180 - frame_margin - top_disc_r - 3, 0]) nose_exterior();
 
-  translate([90, 180 - frame_margin - top_disc_r + 20, 0]) cargo_bay_exterior();
-  translate([90, 180 - frame_margin - top_disc_r - 20, 0]) cargo_bay_exterior();
+  translate([90, 180 - frame_margin - top_disc_r + 18, 0]) cargo_bay_exterior();
+  translate([90, 180 - frame_margin - top_disc_r - 24, 0]) cargo_bay_exterior();
 
   middle_disc_r = middle_d / 2;
   translate([frame_margin + middle_disc_r, 180 - frame_margin - 2 * top_disc_r - frame_margin - middle_disc_r, 0]) middle_disc();
@@ -425,7 +426,28 @@ module layout_parts() {
 }
 
 module kit_frame() {
+  frame_margin = 4;
+  top_disc_r = (cargo_bay_d + 2) / 2;
+  // Carbo Bay top
+  translate([0, 180 - top_disc_r - frame_margin, 0]) wire(frame_margin, false, true);
+  translate([top_disc_r + frame_margin, 180, 0]) rotate([0, 0, -90]) wire(frame_margin, false, true);
+
+  // Cargo bay bottom
+  translate([180, 180 - top_disc_r - frame_margin, 0]) rotate([0, 0, 180]) wire(frame_margin, false, true);
+  translate([180 - (top_disc_r + frame_margin), 180, 0]) rotate([0, 0, -90]) wire(frame_margin, false, true);
+
+  // Cargo Bay Exterior
+  translate([66, 180, 0]) rotate([0, 0, -90]) wire(top_disc_r + frame_margin - 18 - 4, false, true);
+  translate([180 - 66, 180, 0]) rotate([0, 0, -90]) wire(top_disc_r + frame_margin - 18 - 4, false, true);
+
+  translate([66, 180 - frame_margin - top_disc_r + 18 - 4, 0]) rotate([0, 0, -90]) wire(24+18-8, true, true);
+  translate([180 - 66, 180 - frame_margin - top_disc_r + 18 - 4, 0]) rotate([0, 0, -90]) wire(24+18-8, true, true);
+
+
+  white_cat_frame();
 }
 
-build_plate();
+//build_plate();
+
 layout_parts();
+kit_frame();
