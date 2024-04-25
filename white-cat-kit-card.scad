@@ -452,9 +452,18 @@ module kit_frame() {
   translate([180 - 66, 180 - frame_margin - top_disc_r + 18 - 4, 0]) rotate([0, 0, -90]) wire(24+18-8, true, true);
 
   // Top inner hull
-  middle_disc_r = middle_d / 2;
   translate([76, 180 - frame_margin - top_disc_r - 24 - 4, 0]) rotate([0, 0, -90]) wire((top_disc_r + frame_margin + middle_disc_r) - (24 + 4) - 21/2, true, true);
   translate([180 - 76, 180 - frame_margin - top_disc_r - 24 - 4, 0]) rotate([0, 0, -90]) wire((top_disc_r + frame_margin + middle_disc_r) - (24 + 4) - 21/2, true, true);
+  
+  // Bottom hull
+  translate([79, 180 - frame_margin - 2 * top_disc_r - frame_margin - middle_disc_r - 21/2, 0]) rotate([0, 0, -90]) wire(180 - frame_margin - 2 * top_disc_r - frame_margin - middle_disc_r - 40 - 21/2 - 40, true, true);
+  translate([180 - 79, 180 - frame_margin - 2 * top_disc_r - frame_margin - middle_disc_r - 21/2, 0]) rotate([0, 0, -90]) wire(180 - frame_margin - 2 * top_disc_r - frame_margin - middle_disc_r - 40 - 21/2 - 40, true, true);
+  
+  // Top Outer Hull
+  translate([0, 63.5, 0]) wire(38 - 12, false, true);
+  translate([0, 39, 0]) wire(38 - 12, false, true);
+  translate([180, 63.5, 0]) rotate([0, 0, 180]) wire(38 - 12, false, true);
+  translate([180, 39, 0]) rotate([0, 0, 180]) wire(38 - 12, false, true);
 
 
   white_cat_frame();
