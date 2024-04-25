@@ -464,6 +464,17 @@ module kit_frame() {
   translate([0, 39, 0]) wire(38 - 12, false, true);
   translate([180, 63.5, 0]) rotate([0, 0, 180]) wire(38 - 12, false, true);
   translate([180, 39, 0]) rotate([0, 0, 180]) wire(38 - 12, false, true);
+  
+  // Bottom ring
+  translate([56.5, 0, 0]) rotate([0, 0, 90]) wire(25, false, true);
+  translate([180 - 56.5, 0, 0]) rotate([0, 0, 90]) wire(25, false, true);
+  
+  translate([63.5, 25+8, 0]) rotate([0, 0, 90]) wire(40 - (25+8), true, true);
+  translate([180 - 63.5, 25+8, 0]) rotate([0, 0, 90]) wire(40 - (25+8), true, true);
+  
+  // Center cross bar wires
+  translate([90 - 2 - 0.5, 40+10, 0]) wire(4 + 1, true, true);
+  translate([90 - 2 - 0.5, 40+30, 0]) wire(4 + 1, true, true);
 
 
   white_cat_frame();
