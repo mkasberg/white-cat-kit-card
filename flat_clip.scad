@@ -18,7 +18,7 @@ module flat_clip(width, thickness = 1.6, length_tolerance = 0.2) {
 }
 
 module flat_clip_hole(width) {
-  side_tolerance = 0.2;
+  side_tolerance = 0.25;
   clip_tolerance = 0.1;
   thickness = 1.6;
   clip_thickness = 0.8;
