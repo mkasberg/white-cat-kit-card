@@ -399,92 +399,100 @@ module build_plate() {
 module layout_parts() {
   frame_margin = 4;
   top_disc_r = (cargo_bay_d + 2) / 2;
-  translate([top_disc_r + frame_margin, 180 - top_disc_r - frame_margin, 0]) cargo_bay_top_cap();
-  translate([180 - top_disc_r - frame_margin, 180 - top_disc_r - frame_margin, 0]) cargo_bay_bottom_cap();
+  translate([top_disc_r + frame_margin, 178 - top_disc_r - frame_margin, 0]) cargo_bay_top_cap();
+  translate([179.8 - top_disc_r - frame_margin, 178 - top_disc_r - frame_margin, 0]) cargo_bay_bottom_cap();
 
-  translate([90, 180 - frame_margin - top_disc_r - 3, 0]) nose_exterior();
+  translate([90, 178 - frame_margin - top_disc_r - 3, 0]) nose_exterior();
 
-  translate([90, 180 - frame_margin - top_disc_r + 18, 0]) cargo_bay_exterior();
-  translate([90, 180 - frame_margin - top_disc_r - 24, 0]) cargo_bay_exterior();
+  translate([90, 178 - frame_margin - top_disc_r + 18, 0]) cargo_bay_exterior();
+  translate([90, 178 - frame_margin - top_disc_r - 24, 0]) cargo_bay_exterior();
 
   middle_disc_r = middle_d / 2;
-  translate([frame_margin + middle_disc_r, 40 + 40 + 4 + middle_disc_r, 0]) middle_disc();
-  translate([180 - frame_margin - middle_disc_r, 40 + 40 + 4 + middle_disc_r, 0]) bottom_disc();
+  translate([frame_margin + middle_disc_r, 38 + 40 + 4 + middle_disc_r, 0]) middle_disc();
+  translate([179.8 - frame_margin - middle_disc_r, 38 + 40 + 4 + middle_disc_r, 0]) bottom_disc();
 
-  translate([90 + 2, 40 + 40 + 4 + middle_disc_r, 0]) top_section_inner_hull();
-  translate([90 - 2, 40 + 40 + 4 + middle_disc_r, 0]) mirror([1, 0, 0]) top_section_inner_hull();
+  translate([90 + 2, 38 + 40 + 4 + middle_disc_r, 0]) top_section_inner_hull();
+  translate([90 - 2, 38 + 40 + 4 + middle_disc_r, 0]) mirror([1, 0, 0]) top_section_inner_hull();
 
-  translate([90 + 2, 40, 0]) bottom_section_hull(true);
-  translate([90 - 2, 40, 0]) mirror([1, 0, 0]) bottom_section_hull(false);
+  translate([90 + 2, 38, 0]) bottom_section_hull(true);
+  translate([90 - 2, 38, 0]) mirror([1, 0, 0]) bottom_section_hull(false);
 
-  translate([90 + 2, 25, 0]) bottom_ring_hull(true);
-  translate([90 - 2, 25, 0]) mirror([1, 0, 0]) bottom_ring_hull(false);
+  translate([90 + 2, 23, 0]) bottom_ring_hull(true);
+  translate([90 - 2, 23, 0]) mirror([1, 0, 0]) bottom_ring_hull(false);
 
-
-  translate([38, 24, 0]) rotate([0, 0, 90]) top_section_outer_hull();
-  translate([180 - 38, 24, 0]) mirror([1, 0, 0]) rotate([0, 0, 90]) top_section_outer_hull();
+  translate([38, 22, 0]) rotate([0, 0, 90]) top_section_outer_hull();
+  translate([179.8 - 38, 22, 0]) mirror([1, 0, 0]) rotate([0, 0, 90]) top_section_outer_hull();
 }
 
 module kit_frame() {
   frame_margin = 4;
   top_disc_r = (cargo_bay_d + 2) / 2;
   // Carbo Bay top
-  translate([0, 180 - top_disc_r - frame_margin, 0]) wire(frame_margin, false, true);
-  translate([top_disc_r + frame_margin, 180, 0]) rotate([0, 0, -90]) wire(frame_margin, false, true);
+  translate([0, 178 - top_disc_r - frame_margin, 0]) wire(frame_margin, false, true);
+  translate([top_disc_r + frame_margin, 178, 0]) rotate([0, 0, -90]) wire(frame_margin, false, true);
 
   // Cargo bay bottom
-  translate([180, 180 - top_disc_r - frame_margin, 0]) rotate([0, 0, 180]) wire(frame_margin, false, true);
-  translate([180 - (top_disc_r + frame_margin), 180, 0]) rotate([0, 0, -90]) wire(frame_margin, false, true);
+  translate([179.8, 178 - top_disc_r - frame_margin, 0]) rotate([0, 0, 180]) wire(frame_margin, false, true);
+  translate([179.8 - (top_disc_r + frame_margin), 178, 0]) rotate([0, 0, -90]) wire(frame_margin, false, true);
 
   // Middle Disc
   middle_disc_r = middle_d / 2;
-  translate([0, 40 + 40 + 4 + middle_disc_r, 0]) wire(frame_margin, false, true);
+  translate([0, 38 + 40 + 4 + middle_disc_r, 0]) wire(frame_margin, false, true);
   // 3.9 below is "freehand"
-  translate([2 * middle_disc_r + frame_margin, 40 + 40 + 4 + middle_disc_r, 0]) wire(3.9, true, true);
+  translate([2 * middle_disc_r + frame_margin, 38 + 40 + 4 + middle_disc_r, 0]) wire(3.9, true, true);
 
+  translate([0, 178 - 1.5 * frame_margin - 2 * top_disc_r, 0]) wire(top_disc_r + frame_margin, false, false);
+  translate([frame_margin + top_disc_r, 178 - 1.5 * frame_margin - 2 * top_disc_r, 0]) rotate([0, 0, 90]) wire(2, false, true);
+  translate([frame_margin + top_disc_r, 178 - 1.5 * frame_margin - 2 * top_disc_r, 0]) rounded_bend_cap();
+  translate([frame_margin + middle_disc_r, 178 - 1.5 * frame_margin - 2 * top_disc_r, 0]) rotate([0, 0, -90]) wire(2, false, true);
 
   // Bottom Disc
   bottom_disc_r = bottom_disc_d / 2;
-  translate([180, 40 + 40 + 4 + middle_disc_r, 0]) rotate([0, 0, 180]) wire(frame_margin + (middle_disc_r - bottom_disc_r), false, true);
+  translate([179.8, 38 + 40 + 4 + middle_disc_r, 0]) rotate([0, 0, 180]) wire(frame_margin + (middle_disc_r - bottom_disc_r), false, true);
   // 5.9 below is "freehand"
-  translate([180 - (middle_disc_r + bottom_disc_r + frame_margin), 40 + 40 + 4 + middle_disc_r, 0]) rotate([0, 0, 180]) wire(5.9, true, true);
+  translate([179.8 - (middle_disc_r + bottom_disc_r + frame_margin), 38 + 40 + 4 + middle_disc_r, 0]) rotate([0, 0, 180]) wire(5.9, true, true);
+
+  translate([179.8, 178 - 1.5 * frame_margin - 2 * top_disc_r, 0]) rotate([0, 0, 180]) wire(top_disc_r + frame_margin, false, false);
+  translate([179.8 - (frame_margin + top_disc_r), 178 - 1.5 * frame_margin - 2 * top_disc_r, 0]) rotate([0, 0, 90]) wire(2, false, true);
+  translate([179.8 - (frame_margin + top_disc_r), 178 - 1.5 * frame_margin - 2 * top_disc_r, 0]) rounded_bend_cap();
+  translate([179.8 - (frame_margin + middle_disc_r), 178 - 1.5 * frame_margin - 2 * top_disc_r, 0]) rotate([0, 0, -90]) wire(2 + (middle_disc_r - bottom_disc_r), false, true);
 
   // Cargo Bay Exterior
-  translate([66, 180, 0]) rotate([0, 0, -90]) wire(top_disc_r + frame_margin - 18 - 4, false, true);
-  translate([180 - 66, 180, 0]) rotate([0, 0, -90]) wire(top_disc_r + frame_margin - 18 - 4, false, true);
+  translate([66, 178, 0]) rotate([0, 0, -90]) wire(top_disc_r + frame_margin - 18 - 4, false, true);
+  translate([179.8 - 66, 178, 0]) rotate([0, 0, -90]) wire(top_disc_r + frame_margin - 18 - 4, false, true);
 
-  translate([66, 180 - frame_margin - top_disc_r + 18 - 4, 0]) rotate([0, 0, -90]) wire(24+18-8, true, true);
-  translate([180 - 66, 180 - frame_margin - top_disc_r + 18 - 4, 0]) rotate([0, 0, -90]) wire(24+18-8, true, true);
+  translate([66, 178 - frame_margin - top_disc_r + 18 - 4, 0]) rotate([0, 0, -90]) wire(24+18-8, true, true);
+  translate([179.8 - 66, 178 - frame_margin - top_disc_r + 18 - 4, 0]) rotate([0, 0, -90]) wire(24+18-8, true, true);
 
   // Nose
-  translate([66, 151.6, 0]) wire(13.2, false, true);
-  translate([180 - 66, 151.6, 0]) rotate([0, 0, 180]) wire(13.2, false, true);
+  translate([66, 149.6, 0]) wire(13.2, false, true);
+  translate([179.8 - 66, 149.6, 0]) rotate([0, 0, 180]) wire(13.2, false, true);
 
   // Top inner hull
-  translate([76, 180 - frame_margin - top_disc_r - 24 - 4, 0]) rotate([0, 0, -90]) wire((top_disc_r + frame_margin + middle_disc_r) - (24 + 4) - 21/2, true, true);
-  translate([180 - 76, 180 - frame_margin - top_disc_r - 24 - 4, 0]) rotate([0, 0, -90]) wire((top_disc_r + frame_margin + middle_disc_r) - (24 + 4) - 21/2, true, true);
+  translate([76, 178 - frame_margin - top_disc_r - 24 - 4, 0]) rotate([0, 0, -90]) wire((top_disc_r + frame_margin + middle_disc_r) - (24 + 4) - 21/2, true, true);
+  translate([179.8 - 76, 178 - frame_margin - top_disc_r - 24 - 4, 0]) rotate([0, 0, -90]) wire((top_disc_r + frame_margin + middle_disc_r) - (24 + 4) - 21/2, true, true);
   
   // Bottom hull
-  translate([79, 40 + 40 + 4 + middle_disc_r - 21/2, 0]) rotate([0, 0, -90]) wire(40 + 40 + 4 + middle_disc_r - 40 - 21/2 - 40, true, true);
-  translate([180 - 79, 40 + 40 + 4 + middle_disc_r - 21/2, 0]) rotate([0, 0, -90]) wire(40 + 40 + 4 + middle_disc_r - 40 - 21/2 - 40, true, true);
+  translate([79, 38 + 40 + 4 + middle_disc_r - 21/2, 0]) rotate([0, 0, -90]) wire(4 + middle_disc_r - 21/2, true, true);
+  translate([179.8 - 79, 38 + 40 + 4 + middle_disc_r - 21/2, 0]) rotate([0, 0, -90]) wire(4 + middle_disc_r - 21/2, true, true);
   
   // Top Outer Hull
-  translate([0, 63.5, 0]) wire(38 - 12, false, true);
-  translate([0, 39, 0]) wire(38 - 12, false, true);
-  translate([180, 63.5, 0]) rotate([0, 0, 180]) wire(38 - 12, false, true);
-  translate([180, 39, 0]) rotate([0, 0, 180]) wire(38 - 12, false, true);
+  translate([0, 61.5, 0]) wire(38 - 12, false, true);
+  translate([0, 37, 0]) wire(38 - 12, false, true);
+  translate([179.8, 61.5, 0]) rotate([0, 0, 180]) wire(38 - 12, false, true);
+  translate([179.8, 37, 0]) rotate([0, 0, 180]) wire(38 - 12, false, true);
   
   // Bottom ring
-  translate([56.5, 0, 0]) rotate([0, 0, 90]) wire(25, false, true);
-  translate([180 - 56.5, 0, 0]) rotate([0, 0, 90]) wire(25, false, true);
+  translate([56.5, 0, 0]) rotate([0, 0, 90]) wire(23, false, true);
+  translate([179.8 - 56.5, 0, 0]) rotate([0, 0, 90]) wire(23, false, true);
   
-  translate([63.5, 25+8, 0]) rotate([0, 0, 90]) wire(40 - (25+8), true, true);
-  translate([180 - 63.5, 25+8, 0]) rotate([0, 0, 90]) wire(40 - (25+8), true, true);
+  translate([63.5, 23+8, 0]) rotate([0, 0, 90]) wire(38 - (23+8), true, true);
+  translate([179.8 - 63.5, 23+8, 0]) rotate([0, 0, 90]) wire(38 - (23+8), true, true);
   
   // Center cross bar wires
-  translate([90 - 2 - 0.5, 40+10, 0]) wire(4 + 1, true, true);
-  translate([90 - 2 - 0.5, 40+30, 0]) wire(4 + 1, true, true);
-  translate([90 - 2 - 0.5, 40 + 40 + 4 + middle_disc_r, 0]) wire(4 + 1, true, true);
+  translate([90 - 2 - 0.5, 38+10, 0]) wire(4 + 1, true, true);
+  translate([90 - 2 - 0.5, 38+30, 0]) wire(4 + 1, true, true);
+  translate([90 - 2 - 0.5, 38 + 40 + 4 + middle_disc_r, 0]) wire(4 + 1, true, true);
 
 
   white_cat_frame();

@@ -67,23 +67,23 @@ module white_cat_frame(thickness = 1.6) {
   x = 30 / sqrt(2) + 1.6;
 
   difference() {
-    kit_frame_perimeter(180, 180);
+    kit_frame_perimeter(179.8, 178);
 
     translate([-0.01, -0.01, -1]) cube([x, x, thickness + 2]);
-    translate([180 - x + 0.01, -0.01, -1]) cube([x, x, thickness + 2]);
+    translate([179.8 - x + 0.01, -0.01, -1]) cube([x, x, thickness + 2]);
   }
   translate([x, thickness/2, 0]) rounded_bend_cap();
   translate([thickness/2, x, 0]) rounded_bend_cap();
 
-  translate([180-x, thickness/2, 0]) rounded_bend_cap();
-  translate([180-thickness/2, x, 0]) rounded_bend_cap();
+  translate([179.8-x, thickness/2, 0]) rounded_bend_cap();
+  translate([179.8-thickness/2, x, 0]) rounded_bend_cap();
 
-  translate([180-x, thickness/2, 0]) rotate([0, 0, 45]) translate([0, -thickness/2, 0]) cube([30+thickness*sin(45), thickness, thickness]);
+  translate([179.8-x, thickness/2, 0]) rotate([0, 0, 45]) translate([0, -thickness/2, 0]) cube([30+thickness*sin(45), thickness, thickness]);
   translate([x, thickness/2, 0]) rotate([0, 0, 135]) translate([0, -thickness/2, 0]) cube([30+thickness*sin(45), thickness, thickness]);
 
   translate([90 - (55/2), 1.6, 0]) white_cat_card();
 
-  //translate([180 - x, 1.6, 0]) rotate([0, 0, 45]) kasm_card();
+  //translate([179.8 - x, 1.6, 0]) rotate([0, 0, 45]) kasm_card();
 }
 
 module frame_test() {
