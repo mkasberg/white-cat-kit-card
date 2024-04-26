@@ -430,10 +430,12 @@ module kit_frame() {
   // Carbo Bay top
   translate([0, 178 - top_disc_r - frame_margin, 0]) wire(frame_margin, false, true);
   translate([top_disc_r + frame_margin, 178, 0]) rotate([0, 0, -90]) wire(frame_margin, false, true);
+  translate([66, 178 - frame_margin - top_disc_r, 0]) rotate([0, 0, 180]) wire(66 - (frame_margin + 2*top_disc_r), false, true);
 
   // Cargo bay bottom
   translate([179.8, 178 - top_disc_r - frame_margin, 0]) rotate([0, 0, 180]) wire(frame_margin, false, true);
   translate([179.8 - (top_disc_r + frame_margin), 178, 0]) rotate([0, 0, -90]) wire(frame_margin, false, true);
+  translate([179.8 - 66, 178 - frame_margin - top_disc_r, 0]) wire(66 - (frame_margin + 2*top_disc_r), false, true);
 
   // Middle Disc
   middle_disc_r = middle_d / 2;
@@ -467,6 +469,8 @@ module kit_frame() {
   // Nose
   translate([66, 149.6, 0]) wire(13.2, false, true);
   translate([179.8 - 66, 149.6, 0]) rotate([0, 0, 180]) wire(13.2, false, true);
+  translate([66, 144.3, 0]) wire(13.2, false, true);
+  translate([179.8 - 66, 144.3, 0]) rotate([0, 0, 180]) wire(13.2, false, true);
 
   // Top inner hull
   translate([76, 178 - frame_margin - top_disc_r - 24 - 4, 0]) rotate([0, 0, -90]) wire((top_disc_r + frame_margin + middle_disc_r) - (24 + 4) - 21/2, true, true);
@@ -475,7 +479,13 @@ module kit_frame() {
   // Bottom hull
   translate([79, 38 + 40 + 4 + middle_disc_r - 21/2, 0]) rotate([0, 0, -90]) wire(4 + middle_disc_r - 21/2, true, true);
   translate([179.8 - 79, 38 + 40 + 4 + middle_disc_r - 21/2, 0]) rotate([0, 0, -90]) wire(4 + middle_disc_r - 21/2, true, true);
-  
+
+  // 17.6 is "freehand"
+  translate([38, 61.5, 0]) wire(17.6, true, true);
+  translate([179.8 - 38, 61.5, 0]) rotate([0, 0, 180]) wire(17.6, true, true);
+  translate([38, 43.5, 0]) wire(17.6, true, true);
+  translate([179.8 - 38, 43.5, 0]) rotate([0, 0, 180]) wire(17.6, true, true);
+
   // Top Outer Hull
   translate([0, 61.5, 0]) wire(38 - 12, false, true);
   translate([0, 37, 0]) wire(38 - 12, false, true);
@@ -490,6 +500,7 @@ module kit_frame() {
   translate([179.8 - 63.5, 23+8, 0]) rotate([0, 0, 90]) wire(38 - (23+8), true, true);
   
   // Center cross bar wires
+  translate([90 - 2 - 0.5, 23 + 4, 0]) wire(4 + 1, true, true);
   translate([90 - 2 - 0.5, 38+10, 0]) wire(4 + 1, true, true);
   translate([90 - 2 - 0.5, 38+30, 0]) wire(4 + 1, true, true);
   translate([90 - 2 - 0.5, 38 + 40 + 4 + middle_disc_r, 0]) wire(4 + 1, true, true);
