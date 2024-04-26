@@ -408,11 +408,11 @@ module layout_parts() {
   translate([90, 180 - frame_margin - top_disc_r - 24, 0]) cargo_bay_exterior();
 
   middle_disc_r = middle_d / 2;
-  translate([frame_margin + middle_disc_r, 180 - frame_margin - 2 * top_disc_r - frame_margin - middle_disc_r, 0]) middle_disc();
-  translate([180 - frame_margin - middle_disc_r, 180 - frame_margin - 2 * top_disc_r - frame_margin - middle_disc_r, 0]) bottom_disc();
+  translate([frame_margin + middle_disc_r, 40 + 40 + 4 + middle_disc_r, 0]) middle_disc();
+  translate([180 - frame_margin - middle_disc_r, 40 + 40 + 4 + middle_disc_r, 0]) bottom_disc();
 
-  translate([90 + 2, 180 - frame_margin - 2 * top_disc_r - frame_margin - middle_disc_r, 0]) top_section_inner_hull();
-  translate([90 - 2, 180 - frame_margin - 2 * top_disc_r - frame_margin - middle_disc_r, 0]) mirror([1, 0, 0]) top_section_inner_hull();
+  translate([90 + 2, 40 + 40 + 4 + middle_disc_r, 0]) top_section_inner_hull();
+  translate([90 - 2, 40 + 40 + 4 + middle_disc_r, 0]) mirror([1, 0, 0]) top_section_inner_hull();
 
   translate([90 + 2, 40, 0]) bottom_section_hull(true);
   translate([90 - 2, 40, 0]) mirror([1, 0, 0]) bottom_section_hull(false);
@@ -438,11 +438,16 @@ module kit_frame() {
 
   // Middle Disc
   middle_disc_r = middle_d / 2;
-  translate([0, 180 - frame_margin - 2 * top_disc_r - frame_margin - middle_disc_r, 0]) wire(frame_margin, false, true);
+  translate([0, 40 + 40 + 4 + middle_disc_r, 0]) wire(frame_margin, false, true);
+  // 3.9 below is "freehand"
+  translate([2 * middle_disc_r + frame_margin, 40 + 40 + 4 + middle_disc_r, 0]) wire(3.9, true, true);
+
 
   // Bottom Disc
   bottom_disc_r = bottom_disc_d / 2;
-  translate([180, 180 - frame_margin - 2 * top_disc_r - frame_margin - middle_disc_r, 0]) rotate([0, 0, 180]) wire(frame_margin + (middle_disc_r - bottom_disc_r), false, true);
+  translate([180, 40 + 40 + 4 + middle_disc_r, 0]) rotate([0, 0, 180]) wire(frame_margin + (middle_disc_r - bottom_disc_r), false, true);
+  // 5.9 below is "freehand"
+  translate([180 - (middle_disc_r + bottom_disc_r + frame_margin), 40 + 40 + 4 + middle_disc_r, 0]) rotate([0, 0, 180]) wire(5.9, true, true);
 
   // Cargo Bay Exterior
   translate([66, 180, 0]) rotate([0, 0, -90]) wire(top_disc_r + frame_margin - 18 - 4, false, true);
@@ -451,13 +456,17 @@ module kit_frame() {
   translate([66, 180 - frame_margin - top_disc_r + 18 - 4, 0]) rotate([0, 0, -90]) wire(24+18-8, true, true);
   translate([180 - 66, 180 - frame_margin - top_disc_r + 18 - 4, 0]) rotate([0, 0, -90]) wire(24+18-8, true, true);
 
+  // Nose
+  translate([66, 151.6, 0]) wire(13.2, false, true);
+  translate([180 - 66, 151.6, 0]) rotate([0, 0, 180]) wire(13.2, false, true);
+
   // Top inner hull
   translate([76, 180 - frame_margin - top_disc_r - 24 - 4, 0]) rotate([0, 0, -90]) wire((top_disc_r + frame_margin + middle_disc_r) - (24 + 4) - 21/2, true, true);
   translate([180 - 76, 180 - frame_margin - top_disc_r - 24 - 4, 0]) rotate([0, 0, -90]) wire((top_disc_r + frame_margin + middle_disc_r) - (24 + 4) - 21/2, true, true);
   
   // Bottom hull
-  translate([79, 180 - frame_margin - 2 * top_disc_r - frame_margin - middle_disc_r - 21/2, 0]) rotate([0, 0, -90]) wire(180 - frame_margin - 2 * top_disc_r - frame_margin - middle_disc_r - 40 - 21/2 - 40, true, true);
-  translate([180 - 79, 180 - frame_margin - 2 * top_disc_r - frame_margin - middle_disc_r - 21/2, 0]) rotate([0, 0, -90]) wire(180 - frame_margin - 2 * top_disc_r - frame_margin - middle_disc_r - 40 - 21/2 - 40, true, true);
+  translate([79, 40 + 40 + 4 + middle_disc_r - 21/2, 0]) rotate([0, 0, -90]) wire(40 + 40 + 4 + middle_disc_r - 40 - 21/2 - 40, true, true);
+  translate([180 - 79, 40 + 40 + 4 + middle_disc_r - 21/2, 0]) rotate([0, 0, -90]) wire(40 + 40 + 4 + middle_disc_r - 40 - 21/2 - 40, true, true);
   
   // Top Outer Hull
   translate([0, 63.5, 0]) wire(38 - 12, false, true);
@@ -475,6 +484,7 @@ module kit_frame() {
   // Center cross bar wires
   translate([90 - 2 - 0.5, 40+10, 0]) wire(4 + 1, true, true);
   translate([90 - 2 - 0.5, 40+30, 0]) wire(4 + 1, true, true);
+  translate([90 - 2 - 0.5, 40 + 40 + 4 + middle_disc_r, 0]) wire(4 + 1, true, true);
 
 
   white_cat_frame();
