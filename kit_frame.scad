@@ -26,7 +26,27 @@ module name_card(text, width, height, font_size, thickness=1.6) {
       text(text=text, size=font_size, font="Roboto Slab:style=Bold", halign="center");
     }
   }
+}
 
+module label(text, thickness=1.6) {
+  w = 8;
+  h = 8;
+
+  difference() {
+    cube([w, h, thickness / 2]);
+
+    translate([w/2, 1, -1]) linear_extrude(thickness + 2) {
+      text(text=text, size=6, font="Robot Slab:style=Bold", halign="center");
+    }
+
+    if (text == "4") {
+      translate([2.7, 2.9, -1]) cube([2, 1.45, thickness + 1]);
+      translate([3.6, 4, -1]) cube([1.2, 1.7, thickness + 1]);
+    }
+    if (text == "A") {
+      translate([4, 4.45, -1]) cylinder(h=thickness + 1, d=2.9, $fn=32);
+    }
+  }
 }
 
 module rounded_bend_cap(thickness = 1.6) {
@@ -98,6 +118,7 @@ module frame_test() {
 }
 
 frame_test();
+!label("A");
 
 //white_cat_frame();
 
