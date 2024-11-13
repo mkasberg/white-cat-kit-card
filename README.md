@@ -3,7 +3,7 @@
 This is fan art for Devon Eriksen's novel, [Theft of
 Fire](https://devoneriksen.com/theft-of-fire).
 
-![The completed White Cat model](White-Cat-Kit-Card.jpg)
+![The completed White Cat model](white-cat-kit-card.webp)
 
 Download STLs on
 [Printables](https://www.printables.com/model/865769-theft-of-fire-white-cat-kit-card).
